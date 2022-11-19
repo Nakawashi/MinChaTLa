@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 00:43:36 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/18 20:40:03 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 /*
 	print a list from a copy pointer
 */
-static void	printlist(t_variable *top)
+static void	printlist()
 {
-	while (top)
+	t_variable	*env;
+
+	env = ft_get_export();
+	if (!env)
+		return ;
+	while (env)
 	{
-		printf("%s=%s\n", top->name, top->value);
-		top = top->next;
+		if (!env->value)
+			printf("%s\n", env->name);
+		else
+			printf("%s=%s\n", env->name, env->value);
+		env = env->next;
 	}
 }
 
@@ -30,9 +38,6 @@ static void	printlist(t_variable *top)
 */
 int	ft_env(void)
 {
-	t_variable	*env;
-
-	env = ft_get_env();
-	printlist(env);
+	printlist();
 	return (1);
 }
