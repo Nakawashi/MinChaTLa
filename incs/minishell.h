@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/18 04:16:18 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/18 23:26:41 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,5 +220,26 @@ int			exit_error(void);
 void		ft_say(char *str);
 void		print_and_say(char *print, char *say);
 void		print_minishell(void);
+void		back_to_the_future(void);
+void		image_1(int back);
+void		image_2(int back);
+void		image_3(int back);
+void		image_4(int back);
+void		image_5(int back);
+void		image_6(int back);
+void		image_7(int back);
+void		image_8(int back);
+void		image_9(int back);
+void		image_10(int back);
+void		image_11(int back);
+void		image_12(int back);
+void		image_13(int back);
+void		image_14(int back);
+void		image_15(int back);
+void		image_16(int back);
+void		image_17(int back);
+void		image_18(int back);
+void		image_19(int back);
+void		image_20(int back);
 
 #endif
