@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/18 20:40:03 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/20 12:17:45 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	printlist()
 {
 	t_variable	*env;
 
-	env = ft_get_export();
+	env = ft_get_env();
 	if (!env)
 		return ;
 	while (env)
