@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/18 05:09:08 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/18 20:29:10 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@
 	pointeur null : pas les guillemets
 	chaine vide : oui les guillemets
 */
-
 static int	print_export(void)
 {
 	t_variable	*export;
 
 	export = ft_get_export();
-	if (export == NULL)
+	if (!export)
 		return (0);
 	while (export)
 	{
@@ -37,7 +36,6 @@ static int	print_export(void)
 	}
 	return (1);
 }
-
 
 /*
 	return 1 if c is not a valid identifier or doesnt content any =
@@ -137,9 +135,7 @@ void	ft_export(t_cmdli *cmdli)
 			new = create_var_node(cmdli->cmd_args[i++]);
 			if (!export_inset(new->name)
 				|| (new->name[0] >= '0' && new->name[0] <= '9'))
-			{
 				free_content_node_and_print(cmdli, new, i);
-			}
 			else
 			{
 				replace_node(&shell->export, new);

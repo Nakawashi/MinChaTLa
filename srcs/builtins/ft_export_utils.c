@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/18 04:56:54 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/18 20:37:57 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,21 @@
 
 /*
 	Incorrect char cases for ft_export
+	if first char is :
+	a number
+	is '='
+	not a letter (min, maj)
+	other chars
 */
 int	export_inset(char *s)
 {
 	if (!s)
 		return (0);
-	if ((*s >= '0' && *s <= '9'))
+	if ((*s >= '0' && *s <= '9') || (*s == '='))
 		return (0);
 	while (*s)
 	{
 		if (*s != '_'
-			&& *s != '='
 			&& (*s < 'a' || *s > 'z')
 			&& (*s < 'A' || *s > 'Z')
 			&& (*s < '0' || *s > '9'))
@@ -37,10 +41,13 @@ int	export_inset(char *s)
 
 void	free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i)
 {
+	if (ft_strcmp(new->name, "="))
+	{
+		ft_printfd(2, "#+wminishell#0: export: `%s': #/r%s#0\n",
+			cmdli->cmd_args[i], "not a valid identifier");
+	}
 	free(new->name);
 	free(new->value);
 	free(new);
-	ft_printfd(2, "#+wminishell#0: export: `%s': #/r%s#0\n",
-		cmdli->cmd_args[i], "not a valid identifier");
 	g_errno = 1;
 }
