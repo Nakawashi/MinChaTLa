@@ -1,0 +1,43 @@
+exit 5 weiur
+/bin/cat Makefile
+echo $?
+/bin/ls
+echo $?
+/bin/ls -456
+echo $?
+/bin/cat filethatdoesntexist
+expr $? + $?
+ls "-la"
+"l"'s' '-'l"a"
+ec"ho" "hello         'world'"
+ls "   -la"
+echo "cat lol.c | cat > lol.c"
+echo "" ''
+echo "'"
+echo '"'
+echo 'cat lol.c | cat > lol.c'
+echo "$HOME"
+echo '$HOME =' "$HOME"
+echo '"$HOME" =' "'$HOME'"
+env
+export
+export env
+export
+env
+export env=
+export
+env
+export env="ceci est une nouvelle variable"
+export
+env
+export AAAAAAA="BBBBBB"
+export
+env
+pwd
+cd notexist
+pwd
+cd ../../..
+pwd
+env
+export
+exit 
