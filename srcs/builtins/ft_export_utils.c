@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/20 14:20:03 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/20 15:54:37 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,10 @@
 #include "../../printfd/HEADER/ft_printfd.h"
 
 /*
-	Incorrect char cases for ft_export
-	if first char is :
-	a number
-	is '='
-	not a letter (min, maj)
-	other chars
-*/
-int	export_inset(char *s)
-{
-	if (!s)
-		return (0);
-	if ((*s >= '0' && *s <= '9'))
-		return (0);
-	while (*s)
-	{
-		if (*s != '_'
-			&& (*s < 'a' || *s > 'z')
-			&& (*s < 'A' || *s > 'Z')
-			&& (*s < '0' || *s > '9'))
-			return (0);
-			s++;
-	}
-	return (1);
-}
-
-/*
 	returns 1 if c is not a valid identifier or doesnt content any =
 	writes only once the message, not for every bad char
 */
-int	check_non_authorized_values(char *str, int *i)
+int	check_non_authorized_names(char *str, int *i)
 {
 	if (str[0] == '_') // if _ just ignore
 	{

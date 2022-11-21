@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 22:52:41 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/14 00:41:17 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/21 13:33:35 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	replace_node_env(t_variable *env, t_variable *new)
 		prev = env;
 		env = env->next;
 	}
-	prev->next = malloc(sizeof(t_variable));
+	prev->next = (t_variable *)malloc(sizeof(t_variable));
 	if (prev->next)
 	{
+		prev->next->next = NULL;
 		prev->next->name = new->name;
 		prev->next->value = new->value;
 	}

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/20 14:16:02 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/20 15:53:19 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void		ft_echo(char **ss);
 int			print_export(void);
 int			export_inset(char *s);
 void		free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i);
-int			check_non_authorized_values(char *str, int *i);
+int			check_non_authorized_names(char *str, int *i);
 
 // Builtins utils
 void		replace_node(t_variable **export, t_variable *new);

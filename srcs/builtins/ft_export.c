@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/20 14:20:15 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:27:15 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int	put_node(t_variable **export, t_variable *current,
 
 void	ft_export(t_cmdli *cmdli)
 {
-	t_shell			*shell;
-	t_variable		*new;
-	int				i;
+	t_shell		*shell;
+	t_variable	*new;
+	int			i;
 
 	shell = ft_get_shell(NULL);
 	new = NULL;
@@ -79,13 +79,17 @@ void	ft_export(t_cmdli *cmdli)
 		i = 1;
 		while (cmdli->cmd_args[i])
 		{
-			if (check_non_authorized_values(cmdli->cmd_args[i], &i))
+			if (check_non_authorized_names(cmdli->cmd_args[i], &i))
 				continue ;
 			new = create_var_node(cmdli->cmd_args[i++]);
 			replace_node(&shell->export, new);
 			if (new->value)
+			{
+				printf("test\n");
 				replace_node_env(shell->env, new);
+			}
 		}
+		printf("ft_export : fin de la fonction\n");
 	}
 	else
 		print_export();
