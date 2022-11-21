@@ -6,14 +6,15 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/21 13:27:15 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:48:06 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
 
-static void	bigger(t_variable *prev, t_variable *new, t_variable **export, t_variable *current)
+static void	bigger(t_variable *prev, t_variable *new,
+	t_variable **export, t_variable *current)
 {
 	if (prev)
 		prev->next = new;
@@ -22,7 +23,8 @@ static void	bigger(t_variable *prev, t_variable *new, t_variable **export, t_var
 	new->next = current;
 }
 
-static void	equal_fill(t_variable *prev, t_variable *new, t_variable **export, t_variable *current)
+static void	equal_fill(t_variable *prev, t_variable *new,
+	t_variable **export, t_variable *current)
 {
 	if (prev)
 		prev->next = new;
@@ -84,12 +86,8 @@ void	ft_export(t_cmdli *cmdli)
 			new = create_var_node(cmdli->cmd_args[i++]);
 			replace_node(&shell->export, new);
 			if (new->value)
-			{
-				printf("test\n");
 				replace_node_env(shell->env, new);
-			}
 		}
-		printf("ft_export : fin de la fonction\n");
 	}
 	else
 		print_export();
