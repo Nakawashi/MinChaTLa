@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/20 15:53:19 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:52:47 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,10 +193,11 @@ void		replace_node(t_variable **export, t_variable *new);
 void		replace_node_env(t_variable *env, t_variable *new);
 
 // Binaries
-int			exec_cmd(t_cmdli *cmdli);
+int			exec_cmd(t_cmdli *cmdli, char *read);
 
 // Execution
-int			is_builtin(t_cmdli **cmdli, char *read);
+int			is_builtin(t_cmdli *cmdli);
+int			exec_builtin(t_cmdli **cmdli, char *read);
 void		is_absolute_path(char **args, t_list *env);
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd, char *path);
