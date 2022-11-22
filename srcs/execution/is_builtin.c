@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/22 21:27:47 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/23 00:01:23 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	exec_builtin(t_cmdli **cmdli, char *read)
 	else if (ft_strcmp((*cmdli)->cmd, "exit") == 0)
 		ft_exit(cmdli, read, 1);
 	else
-		return (0); // builtin non trouvee => execve
+		return (0);
 	return (1);
 }
 

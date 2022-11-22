@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/20 12:17:45 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/22 23:58:31 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	print a list from a copy pointer
 */
-static void	printlist()
+static void	printlist(void)
 {
 	t_variable	*env;
 

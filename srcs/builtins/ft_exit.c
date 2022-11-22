@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/18 05:25:58 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/23 00:02:11 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,6 @@ int	check_exit_code(char **args)
 	return (ft_atoi(args[1]));
 }
 
-// void	free_shell_node_content(t_shell *shell)
-// {
-// 	if (shell->export)
-// 		free_nodes_contents(&shell->export);
-// 	if (shell->env)
-// 		free_nodes(&shell->env);
-// }
-
 void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 {
 	t_shell	*shell;
@@ -62,7 +54,6 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 		code = 0;
 	shell = ft_get_shell(NULL);
 	print_and_say("Good bye ! See you soon ;)", "Good bye ! See you soon !");
-	if (shell)
 	if (shell->export)
 		free_nodes_contents(&shell->export);
 	if (shell->env)

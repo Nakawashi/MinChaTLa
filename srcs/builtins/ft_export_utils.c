@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/20 15:54:37 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/23 00:01:55 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 int	check_non_authorized_names(char *str, int *i)
 {
-	if (str[0] == '_') // if _ just ignore
+	if (str[0] == '_')
 	{
 		++(*i);
 		return (1);

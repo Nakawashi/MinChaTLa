@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 22:34:44 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/19 01:24:26 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/23 00:00:01 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_sleep(unsigned int time)
 	}
 }
 
-void back_to_the_future(void)
+void	back_to_the_future(void)
 {
 	unsigned int	i;
 
