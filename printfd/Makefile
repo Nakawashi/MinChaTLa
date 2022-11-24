@@ -26,14 +26,14 @@ AR = ar rcs
 
 CFLAGS = -Wall -Werror -Wextra
 
+%.o: %.c
+	@printf "$(YELLOW)Compiling $(BOLD)%-43s \r" $<
+	@$(CC) -c $< -o $@
+
 $(NAME) : $(OBJ)
 	$(ECHO) "$(YELLOW)Compilation de libftprintfd.a...$(RESETTXT)"
 	@$(AR) $@ $^
 	$(ECHO)  "$(GREEN)$(BOLD)Compilation Terminée !!!$(RESETTXT)"
-
-%.o : %.c
-	$(PRINT) "$(YELLOW)Generation des objets...$(RESETTXT)\r"
-	@$(CC) $(CFLAGS) -o $@ -c $<
 
 bonus : $(NAME)
 

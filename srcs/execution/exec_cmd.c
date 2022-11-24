@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/22 21:54:45 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/24 04:27:08 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	exec_cmd(t_cmdli *cmdli, char *read)
 			g_errno = errno;
 			ft_printfd(2, "#+wminishell#0: %s: #/r%s#0\n",
 				cmdli->cmd_args[0], strerror(g_errno));
+			close(STDIN_FILENO);
+			close(STDOUT_FILENO);
 			exit(g_errno);
 		}
 	}

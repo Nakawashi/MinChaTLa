@@ -1,0 +1,17 @@
+<<
+<
+>
+>>
+echo salut &&
+| ls
+ls |
+>out1>out2>out3>>out4>dupMakefile cat <Makefile
+cat dupMakefile
+ls >>dupMakefile>out1
+cat <dupMakefile
+echo HELLO      WORLD|cat >>outfile
+cat outfile
+export LSTEST="     -l          -a   "
+ls $LSTEST
+echo $LSTEST
+echo "$LSTEST"

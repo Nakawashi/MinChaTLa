@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 22:34:44 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/24 03:28:19 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/24 03:41:58 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_sleep(unsigned int time)
 	while (time--)
 	{
 		i = 0;
-		while (i < 500000)
+		while (i < 350000)
 			i++;
 	}
 }

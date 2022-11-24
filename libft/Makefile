@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/11/20 12:19:05 by lgenevey         ###   ########.fr        #
+#    Updated: 2022/11/24 05:25:18 by hrolle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,11 @@ OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 BLUE	= \033[0;34m
 GREEN	= \033[0;32m
 NONE	= \033[0m
+
+%.o: %.c
+	@printf "$(YELLOW)Compiling $(BOLD)%-43s \r" $<
+	@$(CC) -c $< -o $@
+
 
 all: $(NAME)
 

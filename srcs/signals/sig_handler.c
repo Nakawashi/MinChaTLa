@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/20 14:04:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/24 04:46:49 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	sig_handler(t_shell *shell)
 	struct termios	term_flag;
 
 	if (tcgetattr(0, &term_flag) != 0)
-		perror("tcgetattr() error");
+		/*perror("tcgetattr() error")*/;
 	term_flag.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &term_flag);
 	sigaction(SIGINT, &shell->sa_interrupt, NULL);
