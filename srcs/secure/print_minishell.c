@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 22:34:44 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/19 01:24:26 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/19 22:31:40 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_sleep(unsigned int time)
 	while (time--)
 	{
 		i = 0;
-		while (i < 800000)
+		while (i < 500000)
 			i++;
 	}
 }
