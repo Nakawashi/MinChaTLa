@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/24 04:27:08 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/24 07:45:56 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ int	exec_cmd(t_cmdli *cmdli, char *read)
 		cmdli->cmd = get_absolute_path(cmdli->cmd, ft_get_var("PATH"));
 	if (!cmdli->cmd)
 		return (1);
+	if (cmdli->pipe_out)
+		if (pipe(cmdli->pipe_out) == -1)
+			exit(1);//---------------------------------------------------------message d'erreur
 	cmdli->pid = fork();
 	if (cmdli->pid == -1)
 	{

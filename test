@@ -5,6 +5,9 @@ NAME="./minishell"
 # make clean
 # make fclean
 # make re
+
+# ctrl c dois mettre errno à 1
+
 make re
 
 waitKeypress () {
