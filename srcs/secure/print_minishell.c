@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 22:34:44 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/19 22:31:40 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/24 03:28:19 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_sleep(unsigned int time)
 	}
 }
 
-void back_to_the_future(void)
+void	back_to_the_future(void)
 {
 	unsigned int	i;
 

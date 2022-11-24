@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/18 04:15:03 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/22 21:54:45 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	close_and_free(t_cmdli *cmdli)
 {
 	if (cmdli->pipe_in)
 		close_pipe(cmdli->pipe_in);
-	if (cmdli->cmd)
+	if (cmdli->cmd && is_builtin(cmdli) == 0)
 	{
 		free(cmdli->cmd);
 		cmdli->cmd = NULL;
@@ -45,9 +45,10 @@ int	close_and_free(t_cmdli *cmdli)
 	return (0);
 }
 
-int	exec_cmd(t_cmdli *cmdli)
+int	exec_cmd(t_cmdli *cmdli, char *read)
 {
-	cmdli->cmd = get_absolute_path(cmdli->cmd, ft_get_var("PATH"));
+	if (!is_builtin(cmdli))
+		cmdli->cmd = get_absolute_path(cmdli->cmd, ft_get_var("PATH"));
 	if (!cmdli->cmd)
 		return (1);
 	cmdli->pid = fork();
@@ -60,6 +61,8 @@ int	exec_cmd(t_cmdli *cmdli)
 	else if (!cmdli->pid)
 	{
 		set_redirection(cmdli);
+		if (exec_builtin(&cmdli, read) == 1)
+			exit(0);
 		if (execve(cmdli->cmd, cmdli->cmd_args, ft_get_str_env()) == -1)
 		{
 			g_errno = errno;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/18 23:26:41 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/22 16:52:47 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct S_cmdli
 	char			**file_in;
 	t_file			**file_out;
 	int				and_or;
-	pid_t			pid;	
+	pid_t			pid;
 	int				cmd_error;
 	struct S_cmdli	*previous;
 	struct S_cmdli	*next;
@@ -183,18 +183,21 @@ int			ft_cd(t_cmdli *cmdli);
 void		ft_echo(char **ss);
 
 // ft_export_utils.c
+int			print_export(void);
 int			export_inset(char *s);
 void		free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i);
+int			check_non_authorized_names(char *str, int *i);
 
 // Builtins utils
 void		replace_node(t_variable **export, t_variable *new);
 void		replace_node_env(t_variable *env, t_variable *new);
 
 // Binaries
-int			exec_cmd(t_cmdli *cmdli);
+int			exec_cmd(t_cmdli *cmdli, char *read);
 
 // Execution
-int			is_builtin(t_cmdli **cmdli, char *read);
+int			is_builtin(t_cmdli *cmdli);
+int			exec_builtin(t_cmdli **cmdli, char *read);
 void		is_absolute_path(char **args, t_list *env);
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd, char *path);

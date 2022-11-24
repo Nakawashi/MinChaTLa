@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/11 23:26:51 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/23 00:01:23 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 	run the builtin
 */
-int	is_builtin(t_cmdli **cmdli, char *read)
+int	exec_builtin(t_cmdli **cmdli, char *read)
 {
 	if (ft_strcmp((*cmdli)->cmd, "env") == 0)
 		ft_env();
@@ -36,6 +36,30 @@ int	is_builtin(t_cmdli **cmdli, char *read)
 		return (0);
 	return (1);
 }
+
+/*
+	check if cmd->cmd is a builtin
+	returns 0 : if cmd->cmd is empty or if it's not a builtin
+	returns 1 : if cmd->cmd matches with builtin
+*/
+int	is_builtin(t_cmdli *cmdli)
+{
+	const char	*builtins[]
+		= {"echo", "cd", "pwd", "env", "export", "unset", "exit", NULL};
+	int			i;
+
+	if (!cmdli || !cmdli->cmd)
+		return (0);
+	i = 0;
+	while (builtins[i])
+	{
+		if (!ft_strcmp(builtins[i], cmdli->cmd))
+			return (1);
+		++i;
+	}
+	return (0);
+}
+
 // int	run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len)
 // {
 // 	cmd->pid = fork();
@@ -63,27 +87,4 @@ int	is_builtin(t_cmdli **cmdli, char *read)
 // 	else
 // 		return (close_pipe(cmd->pipe_in) + 1);
 // 	return (1);
-// }
-
-/*
-	check if cmd->cmd is a builtin
-	returns 0 if cmd->cmd is empty or if it's not a builtin
-	if cmd->cmd matches with builtin : run the builtin
-*/
-// int	is_builtin(t_cmdli *cmd)
-// {
-// 	const char	*builtins[]
-// 		= {"echo", "cd", "pwd", "env", "export", "unset", "exit", NULL};
-// 	int			i;
-
-// 	if (!cmd || !cmd->cmd)
-// 		return (0);
-// 	i = 0;
-// 	while (builtins[i])
-// 	{
-// 		if (ft_strcmp(builtins[i], cmd->cmd) == 0)
-// 			return (run_builtin(builtins[i], cmd));
-// 		++i;
-// 	}
-// 	return (0);
 // }

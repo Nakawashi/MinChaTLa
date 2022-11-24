@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/18 04:56:54 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/23 00:01:55 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,60 @@
 #include "../../printfd/HEADER/ft_printfd.h"
 
 /*
-	Incorrect char cases for ft_export
+	returns 1 if c is not a valid identifier or doesnt content any =
+	writes only once the message, not for every bad char
 */
-int	export_inset(char *s)
+int	check_non_authorized_names(char *str, int *i)
 {
-	if (!s)
-		return (0);
-	if ((*s >= '0' && *s <= '9'))
-		return (0);
-	while (*s)
+	if (str[0] == '_')
 	{
-		if (*s != '_'
-			&& *s != '='
-			&& (*s < 'a' || *s > 'z')
-			&& (*s < 'A' || *s > 'Z')
-			&& (*s < '0' || *s > '9'))
-			return (0);
-			s++;
+		++(*i);
+		return (1);
 	}
-	return (1);
+	if (!ft_isalpha(str[0]))
+	{
+		ft_printfd(2, "export: `%s': not a valid identifier\n", str);
+		++(*i);
+		return (1);
+	}
+	return (0);
 }
 
 void	free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i)
 {
+	if (ft_strcmp(cmdli->cmd_args[i], "=") != 0)
+	{
+		ft_printfd(2, "#+wminishell#0: export: `%s': #/r%s#0\n",
+			cmdli->cmd_args[i], "not a valid identifier");
+	}
 	free(new->name);
 	free(new->value);
 	free(new);
-	ft_printfd(2, "#+wminishell#0: export: `%s': #/r%s#0\n",
-		cmdli->cmd_args[i], "not a valid identifier");
 	g_errno = 1;
+}
+
+/*
+	print la liste chainee stockee dans la struc shell.export
+	print est different si on n'a pas de valeur (premier OLDPWD par exemple)
+	pointeur null : pas les guillemets
+	chaine vide : oui les guillemets
+	no  '='	: value is null
+	yes '='	: value is empty string
+*/
+int	print_export(void)
+{
+	t_variable	*export;
+
+	export = ft_get_export();
+	if (!export)
+		return (0);
+	while (export)
+	{
+		if (!export->value)
+			printf("declare -x %s\n", export->name);
+		else
+			printf("declare -x %s=\"%s\"\n", export->name, export->value);
+		export = export->next;
+	}
+	return (1);
 }
