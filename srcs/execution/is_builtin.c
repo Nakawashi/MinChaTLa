@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 14:48:19 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:23:52 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	exec_builtin(t_cmdli **cmdli, char *read)
 	else if (ft_strcmp((*cmdli)->cmd, "pwd") == 0)
 		g_errno = ft_pwd();
 	else if (ft_strcmp((*cmdli)->cmd, "echo") == 0)
-		ft_echo(&(*cmdli)->cmd_args[1]);
+		g_errno = ft_echo(&(*cmdli)->cmd_args[1]);
 	else if (ft_strcmp((*cmdli)->cmd, "cd") == 0)
 		g_errno = ft_cd((*cmdli));
 	else if (ft_strcmp((*cmdli)->cmd, "exit") == 0)
