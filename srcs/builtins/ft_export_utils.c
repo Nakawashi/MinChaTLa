@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/23 00:01:55 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:35:27 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 int	check_non_authorized_names(char *str, int *i)
 {
-	if (str[0] == '_')
+	if (str[0] == '_' || str[0] == '#')
 	{
 		++(*i);
 		return (1);
@@ -27,6 +27,7 @@ int	check_non_authorized_names(char *str, int *i)
 	if (!ft_isalpha(str[0]))
 	{
 		ft_printfd(2, "export: `%s': not a valid identifier\n", str);
+		g_errno = 1;
 		++(*i);
 		return (1);
 	}

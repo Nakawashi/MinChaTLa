@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/21 15:48:06 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:35:40 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	ft_export(t_cmdli *cmdli)
 	t_variable	*new;
 	int			i;
 
+	g_errno = 0;
 	shell = ft_get_shell(NULL);
 	new = NULL;
 	if (cmdli->cmd_args[1])
