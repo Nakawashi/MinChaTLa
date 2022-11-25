@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/13 22:08:51 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/25 17:18:24 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ int	ft_unset(char **args)
 		skip_node(export, args[i], 0);
 		++i;
 	}
-	return (1);
+	return (0);
 }
