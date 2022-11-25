@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/23 00:02:11 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 18:07:14 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,20 @@ int	check_exit_code(char **args)
 	return (ft_atoi(args[1]));
 }
 
-void	ft_exit(t_cmdli **cmdli, char *read, int mode)
+static void	free_shell_variables(void)
 {
 	t_shell	*shell;
-	int		code;
+
+	shell = ft_get_shell(NULL);
+	if (shell->export)
+		free_nodes_contents(&shell->export);
+	if (shell->env)
+		free_nodes(&shell->env);
+}
+
+void	ft_exit(t_cmdli **cmdli, char *read, int mode)
+{
+	int	code;
 
 	if (mode)
 	{
@@ -52,12 +62,8 @@ void	ft_exit(t_cmdli **cmdli, char *read, int mode)
 	}
 	else
 		code = 0;
-	shell = ft_get_shell(NULL);
 	print_and_say("Good bye ! See you soon ;)", "Good bye ! See you soon !");
-	if (shell->export)
-		free_nodes_contents(&shell->export);
-	if (shell->env)
-		free_nodes(&shell->env);
+	free_shell_variables();
 	free_cmdli(cmdli);
 	if (read)
 		free(read);
