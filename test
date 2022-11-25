@@ -1,0 +1,66 @@
+#!/bin/zsh
+NAME="./minishell"
+# norminette
+# make
+# make clean
+# make fclean
+# make re
+
+# ctrl c dois mettre errno à 1
+
+make re
+
+waitKeypress () {
+    echo "Press any key to continue"
+    while [ true ]
+    do
+        read -t 3 -n 1
+        if [ $? = 0 ] ; then
+            break ;
+        fi
+    done
+}
+
+waitKeypress
+cat eval_1|$NAME
+waitKeypress
+cat eval_2|$NAME
+waitKeypress
+cat eval_3|$NAME
+waitKeypress
+cat eval_4|$NAME
+waitKeypress
+cat eval_5|$NAME
+waitKeypress
+cat eval_weird|$NAME
+waitKeypress
+echo -e "\n\n\n====================================== LEAKS TEST ======================================\n\n\n"
+waitKeypress
+cat eval_1| leaks -atExit -- $NAME
+waitKeypress
+cat eval_2| leaks -atExit -- $NAME
+waitKeypress
+cat eval_3| leaks -atExit -- $NAME
+waitKeypress
+cat eval_4| leaks -atExit -- $NAME
+waitKeypress
+cat eval_5| leaks -atExit -- $NAME
+waitKeypress
+cat eval_weird| leaks -atExit -- $NAME
+waitKeypress
+echo -e "\n\n\n====================================== FSANITIZE TEST ======================================\n\n\n"
+waitKeypress
+make re CFLAGS+=" -fsanitize=address -g3"
+cat eval_1|$NAME
+waitKeypress
+cat eval_2|$NAME
+waitKeypress
+cat eval_3|$NAME
+waitKeypress
+cat eval_4|$NAME
+waitKeypress
+cat eval_5|$NAME
+waitKeypress
+cat eval_weird|$NAME
+waitKeypress
+echo -e "\n\n\n====================================== END ======================================\n\n\n"
