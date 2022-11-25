@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/24 07:45:56 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/26 00:22:22 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	exec_cmd(t_cmdli *cmdli, char *read)
 	{
 		set_redirection(cmdli);
 		if (exec_builtin(&cmdli, read) == 1)
-			exit(0);
+			exit(g_errno);
 		if (execve(cmdli->cmd, cmdli->cmd_args, ft_get_str_env()) == -1)
 		{
 			g_errno = errno;
