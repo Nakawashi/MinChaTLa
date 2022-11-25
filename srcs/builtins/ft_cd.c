@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/22 23:38:06 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:47:21 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ int	ft_cd(t_cmdli *cmdli)
 		update_node("PWD", new_path);
 	}
 	else
+	{
 		ft_printfd(2, "cd: %s: %s\n", strerror(errno), cmdli->cmd_args[1]);
-	return (1);
+		g_errno = 1;
+	}
+	g_errno = 0;
+	return (g_errno);
 }
