@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 00:32:45 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/04 05:26:08 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/25 17:22:37 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,15 @@ char	**set_options(char **ss, t_echoptions *options)
 	return (ss);
 }
 
-void	ft_echo(char **ss)
+int	ft_echo(char **ss)
 {
 	t_echoptions	options;
 
+	g_errno = 0;
 	if (!ss || !*ss)
 	{
 		write(1, "\n", 1);
-		return ;
+		return (g_errno);
 	}
 	ss = set_options(ss, &options);
 	if (*ss)
@@ -121,5 +122,5 @@ void	ft_echo(char **ss)
 			write(1, "$", 1);
 		write(1, "\n", 1);
 	}
-	g_errno = 0;
+	return (g_errno);
 }
