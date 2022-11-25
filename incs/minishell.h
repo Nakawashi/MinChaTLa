@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 14:54:14 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 18:06:22 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int			ft_unset(char **args);
 int			ft_pwd(void);
 void		ft_exit(t_cmdli **cmdli, char *read, int mode);
 int			ft_cd(t_cmdli *cmdli);
-void		ft_echo(char **ss);
+int			ft_echo(char **ss);
 
 // ft_export_utils.c
 int			print_export(void);
