@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:07 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/22 21:35:33 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 17:20:09 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int	ft_pwd(void)
 	cwd = getcwd(buff, PATH_MAX);
 	if (cwd != NULL)
 		printf("%s\n", cwd);
-	return (1);
+	return (0);
 }
