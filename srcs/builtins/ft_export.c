@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 14:35:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:54:55 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	put_node(t_variable **export, t_variable *current,
 	return (1);
 }
 
-void	ft_export(t_cmdli *cmdli)
+int	ft_export(t_cmdli *cmdli)
 {
 	t_shell		*shell;
 	t_variable	*new;
@@ -92,4 +92,5 @@ void	ft_export(t_cmdli *cmdli)
 	}
 	else
 		print_export();
+	return (g_errno);
 }

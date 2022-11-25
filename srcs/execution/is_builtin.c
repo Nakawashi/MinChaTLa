@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/23 00:01:23 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:48:19 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,24 @@
 */
 int	exec_builtin(t_cmdli **cmdli, char *read)
 {
+
 	if (ft_strcmp((*cmdli)->cmd, "env") == 0)
-		ft_env();
+		g_errno = ft_env();
 	else if (ft_strcmp((*cmdli)->cmd, "export") == 0)
 		ft_export((*cmdli));
 	else if (ft_strcmp((*cmdli)->cmd, "unset") == 0)
-		ft_unset((*cmdli)->cmd_args);
+		g_errno = ft_unset((*cmdli)->cmd_args);
 	else if (ft_strcmp((*cmdli)->cmd, "pwd") == 0)
-		ft_pwd();
+		g_errno = ft_pwd();
 	else if (ft_strcmp((*cmdli)->cmd, "echo") == 0)
 		ft_echo(&(*cmdli)->cmd_args[1]);
 	else if (ft_strcmp((*cmdli)->cmd, "cd") == 0)
-		ft_cd((*cmdli));
+		g_errno = ft_cd((*cmdli));
 	else if (ft_strcmp((*cmdli)->cmd, "exit") == 0)
 		ft_exit(cmdli, read, 1);
 	else
-		return (0);
-	return (1);
+		return (g_errno);
+	return (g_errno);
 }
 
 /*

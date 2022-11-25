@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/22 23:58:31 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:48:29 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ static void	printlist(void)
 int	ft_env(void)
 {
 	printlist();
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/22 16:52:47 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/25 14:54:14 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void		sig_handler_test(t_shell *shell);
 int			ft_env(void);
 int			put_node(t_variable **export, t_variable *current,
 				t_variable *prev, t_variable *new);
-void		ft_export(t_cmdli *cmdli);
+int			ft_export(t_cmdli *cmdli);
 int			ft_unset(char **args);
 int			ft_pwd(void);
 void		ft_exit(t_cmdli **cmdli, char *read, int mode);
