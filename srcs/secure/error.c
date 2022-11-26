@@ -3,28 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 23:40:46 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/16 23:53:35 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/26 02:18:06 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
 
-int	return_error(char *debug)
+int	return_error(int error, char *custom)
 {
-	if (debug)
-		ft_printfd(1, "Here : line %s\n", debug);
-	g_errno = errno;
-	ft_printfd(2, "#+bminishell#0: #/r%s#0\n", strerror(g_errno));
-	return (g_errno);
+	g_errno = error;
+	if (custom)
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", custom);
+	else
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(error));
+	return (error);
 }
 
-int	exit_error(void)
+int	exit_error(int error, char *custom)
 {
-	g_errno = errno;
-	ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(g_errno));
-	exit(g_errno);
+	g_errno = error;
+	if (custom)
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", custom);
+	else
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(error));
+	exit(error);
+}
+
+char	**ss_error(int error, char *custom)
+{
+	g_errno = error;
+	if (custom)
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", custom);
+	else
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(error));
+	return (NULL);
+}
+
+char	*s_error(int error, char *custom)
+{
+	g_errno = error;
+	if (custom)
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", custom);
+	else
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(error));
+	return (NULL);
+}
+
+void	void_error(int error, char *custom)
+{
+	g_errno = error;
+	if (custom)
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", custom);
+	else
+		ft_printfd(2, "#+wminishell#0: #/r%s#0\n", strerror(error));
 }

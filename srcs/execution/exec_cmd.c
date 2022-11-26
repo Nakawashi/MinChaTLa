@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/26 00:22:22 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/26 03:07:38 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,37 @@ int	close_and_free(t_cmdli *cmdli)
 	return (0);
 }
 
+void	write_heredoc(t_cmdli *cmdli)
+{
+	if (!cmdli->here_doc)
+		return ;
+	if (!cmdli->pipe_in)
+	{
+		cmdli->pipe_in = malloc(2 * sizeof(int));
+		if (!cmdli->pipe_in)
+			return (void_error(1, "memory allocation failed"));
+	}
+	else
+		close_pipe(cmdli->pipe_in);
+	if (pipe(cmdli->pipe_in) == -1)
+		return (void_error(errno, NULL));
+	if (write(cmdli->pipe_in[1],
+			cmdli->here_doc, ft_strlen(cmdli->here_doc)) == -1)
+		return (void_error(errno, NULL));
+}
+
 int	exec_cmd(t_cmdli *cmdli, char *read)
 {
-	if (!is_builtin(cmdli))
-		cmdli->cmd = get_absolute_path(cmdli->cmd, ft_get_var("PATH"));
+	cmdli->cmd = get_absolute_path(cmdli->cmd, ft_get_var("PATH"));
 	if (!cmdli->cmd)
 		return (1);
+	write_heredoc(cmdli);
 	if (cmdli->pipe_out)
 		if (pipe(cmdli->pipe_out) == -1)
-			exit(1);//---------------------------------------------------------message d'erreur
+			return (return_error(errno, NULL));
 	cmdli->pid = fork();
 	if (cmdli->pid == -1)
-	{
-		g_errno = errno;
-		ft_printfd(2, "#+wminishell#0:#/r %s#0\n", strerror(g_errno));
-		return (g_errno);
-	}
+		return (return_error(errno, NULL));
 	else if (!cmdli->pid)
 	{
 		set_redirection(cmdli);
@@ -71,8 +86,6 @@ int	exec_cmd(t_cmdli *cmdli, char *read)
 			g_errno = errno;
 			ft_printfd(2, "#+wminishell#0: %s: #/r%s#0\n",
 				cmdli->cmd_args[0], strerror(g_errno));
-			close(STDIN_FILENO);
-			close(STDOUT_FILENO);
 			exit(g_errno);
 		}
 	}

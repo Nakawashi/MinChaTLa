@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 18:09:32 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/26 11:38:39 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	main(int ac, char **av, char **env)
 				cmdli_i = cmdli;
 				while (cmdli_i)
 				{
-					if (is_builtin(cmdli_i) == 1 && cmdli->next == NULL)
+					if (!cmdli_i->cmd)
+						no_cmd(cmdli_i);
+					else if (is_builtin(cmdli_i) == 1 && cmdli->next == NULL)
 						exec_builtin(&cmdli_i, read);
 					else
 						exec_cmd(cmdli_i, read);
