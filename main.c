@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/24 04:40:52 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/26 01:06:25 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	main(int ac, char **av, char **env)
 				cmdli_i = cmdli;
 				while (cmdli_i)
 				{
-					if (is_builtin(cmdli_i) == 1 && cmdli->next == NULL)
+					if (!cmdli_i->cmd)
+						no_cmd(cmdli_i);
+					else if (is_builtin(cmdli_i) == 1 && cmdli->next == NULL)
 						exec_builtin(&cmdli_i, read);
 					else
 						exec_cmd(cmdli_i, read);

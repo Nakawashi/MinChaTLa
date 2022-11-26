@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 18:06:22 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/26 02:18:22 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ void		replace_node_env(t_variable *env, t_variable *new);
 
 // Binaries
 int			exec_cmd(t_cmdli *cmdli, char *read);
+int			no_cmd(t_cmdli *cmdli);
 
 // Execution
 int			is_builtin(t_cmdli *cmdli);
@@ -203,6 +204,8 @@ void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd, char *path);
 int			ft_strchr_path(char *s, char *path, int c);
 int			close_pipe(int	*pipe);
+int			close_and_free(t_cmdli *cmdli);
+void		write_heredoc(t_cmdli *cmdli);
 
 // Readline
 void		rl_replace_line(const char *text, int clear_undo);
@@ -216,8 +219,11 @@ char		**free_tab_null(char **ss);
 
 //Secure
 char		**free_tab_null(char **ss);
-int			return_error(char *debug);
-int			exit_error(void);
+int			return_error(int error, char *custom);
+int			exit_error(int error, char *custom);
+char		**ss_error(int error, char *custom);
+char		*s_error(int error, char *custom);
+void		void_error(int error, char *custom);
 
 //Fun
 void		ft_say(char *str);
