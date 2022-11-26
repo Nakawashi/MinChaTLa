@@ -6,7 +6,7 @@
 /*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/26 02:27:54 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/26 03:07:38 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	exec_cmd(t_cmdli *cmdli, char *read)
 	{
 		set_redirection(cmdli);
 		if (exec_builtin(&cmdli, read) == 1)
-			exit(0);
+			exit(g_errno);
 		if (execve(cmdli->cmd, cmdli->cmd_args, ft_get_str_env()) == -1)
 		{
 			g_errno = errno;
