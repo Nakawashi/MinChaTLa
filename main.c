@@ -6,7 +6,7 @@
 /*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/26 01:06:25 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/26 03:15:47 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ int	main(int ac, char **av, char **env)
 					cmdli_i = cmdli_i->next;
 				}
 				while (wait(&status) != -1)
-					if (errno == ECHILD && WIFEXITED(status))
-						g_errno = WEXITSTATUS(status);
+				{
+					WIFEXITED(status);
+					g_errno = WEXITSTATUS(status);
+				}
 				shell.if_sig = 1;
 				free_cmdli(&cmdli);
 			}

@@ -6,7 +6,7 @@
 /*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/26 02:18:22 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/26 03:35:45 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ void		is_absolute_path(char **args, t_list *env);
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd, char *path);
 int			ft_strchr_path(char *s, char *path, int c);
+char		*no_path(char *cmd, char *path);
 int			close_pipe(int	*pipe);
 int			close_and_free(t_cmdli *cmdli);
 void		write_heredoc(t_cmdli *cmdli);

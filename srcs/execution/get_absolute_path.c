@@ -6,7 +6,7 @@
 /*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:12:23 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/26 00:53:51 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/26 03:34:32 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,27 @@ char	**split_path(char *path, char *cmd, unsigned int cmd_len)
 	return (ret);
 }
 
+char *no_path(char *cmd, char *path)
+{
+	if (path)
+		free(path);
+	if (access(cmd, X_OK) == -1)
+	{
+		g_errno = 127;
+		ft_printfd(2, "#+wminishell#0: %s: #/r%s#0\n", cmd, "command not found");
+		return (NULL);
+	}
+	return (ft_strdup(cmd));
+}
+
 char	*get_absolute_path(char *cmd, char *path)
 {
 	char			**path_tab;
 	char			*ret;
 	unsigned int	i;
 
+	if (!path || !*path)
+		return (no_path(cmd, path));
 	if (ft_strchr_path(cmd, path, '/'))
 		return (ft_strdup(cmd));
 	path_tab = split_path(path, cmd, ft_strlen(cmd));
@@ -101,8 +116,8 @@ char	*get_absolute_path(char *cmd, char *path)
 	if (!path_tab[i])
 	{
 		free_tab(path_tab);
-		g_errno = errno;
-		ft_printfd(2, "#+wminishell#0: %s: #/r%s#0\n", cmd, strerror(g_errno));
+		g_errno = 127;
+		ft_printfd(2, "#+wminishell#0: %s: #/r%s#0\n", cmd, "command not found");
 		return (NULL);
 	}
 	ret = ft_strdup(path_tab[i]);

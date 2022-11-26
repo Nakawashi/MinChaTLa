@@ -6,7 +6,7 @@
 /*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:51:22 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/26 01:49:19 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/26 03:27:34 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ void	file_rdo(t_cmdli **cmds_list, char *file, t_type type)
 	if (!(*cmds_list)->file_out)
 		return (error_cmdli(cmds_list, "minishell: memory allocation failed\n"));
 }
-
-// void	file_heredoc(t_cmdli **cmds_list, char *file)
-// {
-// 	(*cmds_list)->here_doc = heredoc(file);
-// }
 
 void	add_file(t_cmdli **cmds_list, char *file, t_type *type)
 {
