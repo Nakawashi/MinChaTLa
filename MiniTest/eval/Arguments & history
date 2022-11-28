@@ -1,0 +1,5 @@
+/bin/cat ../Makefile
+/usr/bin/say hello world
+/usr/bin/touch hello
+/bin/chmod 777 hello
+/bin/cat hello

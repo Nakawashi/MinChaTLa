@@ -1,0 +1,19 @@
+env
+export test
+env
+export
+export test=
+env
+export
+export test=""
+env
+export
+export test="ceci est un test"
+env
+export
+export AAA="AAA"
+env
+export
+export USER="Daenerys du Typhon de la Maison Targaryen, première du nom, Reine des Andals, de Rhoynar et des Premiers Hommes, Suzeraine des Sept Couronnes et Protectrice du Royaume, Dame de Peyredragon, Reine de Meereen, Khaleesi de la Grande Mer herbeuse, l’Imbrûlée, Briseuse de chaînes et Mère des dragons"
+env
+export

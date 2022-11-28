@@ -1,0 +1,8 @@
+echo 'cat lol.c | cat > lol.c'
+echo 'hello    world'
+echo '"hello    world"'
+"l"'s' '-'l"a"
+echo -n '' "" ''
+ls ''
+ls ""
+echo '$HOME''/$USER'

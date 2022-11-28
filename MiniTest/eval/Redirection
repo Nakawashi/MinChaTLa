@@ -1,0 +1,17 @@
+cat ../Makefile > dupMakefile
+<dupMakefile cat
+>>dupMakefile echo CECI EST UN Makefile
+cat <dupMakefile
+<<stop cat
+ceci
+est
+un
+heredoc
+stop
+<<stop >out1>>out2>>dupMakefile>out3
+ceci
+est
+un
+heredoc
+stop
+cat dupMakefile

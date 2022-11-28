@@ -1,0 +1,12 @@
+ls | grep a
+cat ../Makefile | grep a
+ls -la|grep u|wc -l
+cat filethatdoesntexist|wc
+<../Makefile cat|grep a>outfile
+cat outfile
+<../Makefile<outfile<<stop cat|grep a
+abba
+elrdighlkdfglk
+yfukbxdljgdf
+hello world
+stop

@@ -1,0 +1,14 @@
+ls
+say hello
+awk
+cat ../Makefile
+unset PATH
+ls
+say hello
+awk
+cat ../Makefile
+export PATH="/bin:/usr/bin:$PWD"
+ls
+say hello
+awk
+cat ../Makefile

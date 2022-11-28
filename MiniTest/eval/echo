@@ -1,0 +1,10 @@
+echo
+echo -n
+echo hello world
+echo -n hello world
+echo 42
+echo -n 42
+echo hello 42       students
+echo -nnnnnnnn hello 42       students
+echo --n
+echo hello -n

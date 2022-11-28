@@ -1,0 +1,98 @@
+#!/bin/zsh
+
+NAME="../minishell"
+# norminette -C ..
+# make -C ..
+# make clean -C ..
+# make fclean -C ..
+# make re -C ..
+
+# ctrl c dois mettre errno à 1
+
+make re -C ..
+
+waitKeypress () {
+    echo "Press any key to continue"
+    while [ true ]
+    do
+        read -t 3 -n 1
+        if [ $? = 0 ] ; then
+            break ;
+        fi
+    done
+}
+
+echo -e "\n\n\n====================================== Simple Command & global variables ======================================\n\n\n"
+cat eval/"Simple Command & global variables"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Arguments & history ======================================\n\n\n"
+cat eval/"Arguments & history"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== echo ======================================\n\n\n"
+cat eval/"echo"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== exit ======================================\n\n\n"
+
+echo "exit"| leaks -atExit -- $NAME
+echo "exit 0"| leaks -atExit -- $NAME
+echo "exit skj"| leaks -atExit -- $NAME
+echo -e "exit 1 2 3 4\nexit 1 2 3 a"| leaks -atExit -- $NAME
+
+echo -e "\n\n\n====================================== Return value of a process ======================================\n\n\n"
+cat eval/"Return value of a process"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Signals ======================================\n\n\n"
+
+echo try your own test
+
+echo -e "\n\n\n====================================== Double Quotes ======================================\n\n\n"
+cat eval/"Double Quotes"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Single Quotes ======================================\n\n\n"
+cat eval/"Single Quotes"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== export & env ======================================\n\n\n"
+cat eval/"export & env"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== unset ======================================\n\n\n"
+cat eval/"unset"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== cd & pwd ======================================\n\n\n"
+cat eval/"cd & pwd"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Relative Path ======================================\n\n\n"
+cat eval/"Relative Path"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Environment path ======================================\n\n\n"
+cat eval/"Environment path"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Redirection ======================================\n\n\n"
+cat eval/"Redirection"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Pipes ======================================\n\n\n"
+cat eval/"Pipes"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Go Crazy and history ======================================\n\n\n"
+cat eval/"Go Crazy and history"| leaks -atExit -- $NAME
+waitKeypress
+
+echo -e "\n\n\n====================================== Environment variables ======================================\n\n\n"
+cat eval/"Environment variables"| leaks -atExit -- $NAME
+waitKeypress
+echo -e "\n\n\n====================================== END ======================================\n\n\n"
+rm out*
+rm dupMakefile
+rm hello

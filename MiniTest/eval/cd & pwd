@@ -1,0 +1,18 @@
+cd $HOME
+ls
+pwd
+cd $OLDPWD
+ls
+pwd
+cd /
+ls
+pwd
+cd $HOME/Download
+ls
+pwd
+cd /
+ls
+pwd
+cd $HOME/Download/../Desktop/./../../..
+ls
+pwd

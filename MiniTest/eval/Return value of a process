@@ -1,0 +1,18 @@
+/bin/cat ../Makefile
+echo $?
+/usr/bin/say hello world
+echo $?
+/usr/bin/touch hello
+echo $?
+/bin/chmod 777 hello
+echo $?
+/bin/cat hello
+echo $?
+/bin/cat filethatdoesntexist
+echo $?
+/bin/cat filethatdoesntexist
+expr $? + $?
+/bin/ls filethatdoesntexist
+echo $?
+/bin/ls filethatdoesntexist
+expr 2 + $?

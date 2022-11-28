@@ -1,0 +1,7 @@
+echo $USER
+echo '$USER='$USER
+echo "'$USER'=username"
+export LS="ls"
+$LS
+export MAKE="../Makefile"
+cat $MAKE
