@@ -6,11 +6,12 @@
 /*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 04:06:52 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/28 09:19:49 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/minishell.h"
+#include "printfd/HEADER/ft_printfd.h"
 #include <stdio.h>
 
 int	main(int ac, char **av, char **env)

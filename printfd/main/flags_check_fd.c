@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flags_check_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 17:13:44 by hrolle            #+#    #+#             */
-/*   Updated: 2022/06/16 11:05:07 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/28 09:12:27 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	value_check(const char *str, t_flags *flags, int *i)
 	}
 }
 
-int	flags_check_fd(int fd, const char *str, va_list args, int *i)
+int	flags_check_fd(int fd, const char *str, va_list *args, int *i)
 {
 	t_flags	flags;
 
@@ -70,21 +70,21 @@ int	flags_check_fd(int fd, const char *str, va_list args, int *i)
 	if (str[*i] == '%')
 		return (print_c_fd(fd, &flags, '%'));
 	else if (str[*i] == 'c')
-		return (print_c_fd(fd, &flags, va_arg(args, int)));
+		return (print_c_fd(fd, &flags, va_arg(*args, int)));
 	else if (str[*i] == 's')
-		return (print_s_fd(fd, &flags, va_arg(args, char *)));
+		return (print_s_fd(fd, &flags, va_arg(*args, char *)));
 	else if (str[*i] == 'd' || str[*i] == 'i')
-		return (print_d_fd(fd, &flags, va_arg(args, int)));
+		return (print_d_fd(fd, &flags, va_arg(*args, int)));
 	else if (str[*i] == 'u')
-		return (print_u_fd(fd, &flags, va_arg(args, unsigned int)));
+		return (print_u_fd(fd, &flags, va_arg(*args, unsigned int)));
 	else if (str[*i] == 'x')
-		return (print_x_fd(fd, &flags, va_arg(args, unsigned int)));
+		return (print_x_fd(fd, &flags, va_arg(*args, unsigned int)));
 	else if (str[*i] == 'p')
-		return (print_x_fd(fd, &flags, va_arg(args, unsigned long int)));
+		return (print_x_fd(fd, &flags, va_arg(*args, unsigned long int)));
 	else if (str[*i] == 'X')
-		return (print_upx_fd(fd, &flags, va_arg(args, unsigned int)));
+		return (print_upx_fd(fd, &flags, va_arg(*args, unsigned int)));
 	else if (str[*i] == 'o')
-		return (print_o_fd(fd, &flags, va_arg(args, unsigned int)));
+		return (print_o_fd(fd, &flags, va_arg(*args, unsigned int)));
 	else if (str[*i])
 		return (print_len_fd(fd, &flags, str[*i]));
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:12:23 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/26 03:34:32 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/28 09:03:24 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	*get_absolute_path(char *cmd, char *path)
 	{
 		free_tab(path_tab);
 		g_errno = 127;
-		ft_printfd(2, "#+wminishell#0: %s: #/r%s#0\n", cmd, "command not found");
+		ft_printfd(2, "#+wminishell#0: %s: #/rcommand not found#0\n", cmd);
 		return (NULL);
 	}
 	ret = ft_strdup(path_tab[i]);

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:10:11 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/24 07:44:17 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/28 09:26:05 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
 
-void	set_file_in(t_cmdli *cmdli)
+int	set_file_in(t_cmdli *cmdli)
 {
 	unsigned int	i;
 
@@ -28,8 +28,10 @@ void	set_file_in(t_cmdli *cmdli)
 			g_errno = errno;
 			ft_printfd(2, "#+wminishell#0: %s:#/r %s#0\n",
 				cmdli->file_in[i - 1], strerror(g_errno));
+			return (1);
 		}
 	}
+	return (0);
 }
 
 void	set_file_out(t_cmdli *cmdli)
@@ -94,10 +96,11 @@ void	set_redirection(t_cmdli *cmdli)
 		close(cmdli->pipe_in[1]);
 	if (cmdli->pipe_out)
 		close(cmdli->pipe_out[0]);
-	if (cmdli->file_in)
-		set_file_in(cmdli);
 	if (cmdli->file_out)
 		set_file_out(cmdli);
+	if (cmdli->file_in)
+		if (set_file_in(cmdli))
+			exit(g_errno);
 	set_in(cmdli);
 	set_out(cmdli);
 }

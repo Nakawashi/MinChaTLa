@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printfd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 13:10:08 by hrolle            #+#    #+#             */
-/*   Updated: 2022/06/16 12:54:46 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/28 09:10:52 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_printfd(int fd, const char *str, ...)
 		if (str[i] == '%')
 		{
 			i++;
-			cmpt += flags_check_fd(fd, str, args, &i);
+			cmpt += flags_check_fd(fd, str, &args, &i);
 			if (str[i])
 				i++;
 		}
