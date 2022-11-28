@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:10:11 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/28 09:26:05 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/28 19:15:57 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	set_file_out(t_cmdli *cmdli)
 					O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (cmdli->fd_out == -1)
 		{
+			printf("Hehee\n");
 			g_errno = errno;
 			ft_printfd(2, "#+wminishell#0: %s:#/r %s#0\n",
 				cmdli->file_out[i - 1], strerror(g_errno));

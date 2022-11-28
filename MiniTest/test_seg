@@ -9,7 +9,8 @@ NAME="../minishell"
 
 # ctrl c dois mettre errno à 1
 
-make re CFLAGS+=$CFLAGS" -fsanitize=address -g3" -C ..
+# make re CFLAGS+=$CFLAGS" -fsanitize=address -g3" -C ..
+make re DEBUG=1 -C ..
 
 waitKeypress () {
     echo "Press any key to continue"

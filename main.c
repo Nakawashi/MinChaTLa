@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 09:19:49 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/28 19:32:40 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "incs/minishell.h"
 #include "printfd/HEADER/ft_printfd.h"
 #include <stdio.h>
+
+int	wait_process(int status)
+{
+    while (wait(&status) != -1)
+        ;
+    if (WIFEXITED(status))
+	{
+    	return (WEXITSTATUS(status));
+	}
+	status = 0;
+	return (0);
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -22,6 +34,7 @@ int	main(int ac, char **av, char **env)
 	char	*read;
 	int		status;
 
+	status = 0;
 	ft_get_shell(&shell);
 	init_shell(&shell, env);
 	if (ac > 1)
@@ -30,7 +43,6 @@ int	main(int ac, char **av, char **env)
 		shell.say = 0;
 	//print_minishell();
 	(void)av;
-	status = 0;
 	sig_handler(&shell);
 	while (true)
 	{
@@ -54,11 +66,11 @@ int	main(int ac, char **av, char **env)
 					shell.if_sig = 0;//------------move to exec_cmd
 					cmdli_i = cmdli_i->next;
 				}
-				while (wait(&status) != -1)
-				{
-					WIFEXITED(status);
-					g_errno = WEXITSTATUS(status);
-				}
+				//g_errno = wait_process(status);
+				 while (wait(&status) != -1)
+					if (WIFEXITED(status))
+						g_errno = WEXITSTATUS(status);
+				// g_errno = WEXITSTATUS(status);
 				shell.if_sig = 1;
 				free_cmdli(&cmdli);
 			}

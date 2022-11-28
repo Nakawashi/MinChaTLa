@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 14:47:21 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:09:07 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ int	ft_cd(t_cmdli *cmdli)
 		new_path = ft_strdup(cmdli->cmd_args[1]);
 	if (!chdir(new_path))
 	{
+		if (new_path)
+			free(new_path);
 		new_path = getcwd(buff, PATH_MAX);
 		update_node("PWD", new_path);
 	}
 	else
 	{
+		if (new_path)
+			free(new_path);
 		ft_printfd(2, "cd: %s: %s\n", strerror(errno), cmdli->cmd_args[1]);
 		g_errno = 1;
 	}

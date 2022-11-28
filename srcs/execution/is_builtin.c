@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 17:23:52 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/28 19:26:12 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	exec_builtin(t_cmdli **cmdli, char *read)
 	else if (ft_strcmp((*cmdli)->cmd, "exit") == 0)
 		ft_exit(cmdli, read, 1);
 	else
-		return (g_errno);
-	return (g_errno);
+		return (0);
+	return (1);
 }
 
 /*
