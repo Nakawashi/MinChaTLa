@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:12:23 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/28 18:54:03 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/28 20:40:39 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**split_path(char *path, char *cmd, unsigned int cmd_len)
 	return (ret);
 }
 
-char *no_path(char *cmd, char *path)
+char	*no_path(char *cmd, char *path)
 {
 	if (path)
 		free(path);

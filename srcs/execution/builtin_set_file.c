@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   builtin_set_file.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 12:12:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 21:14:22 by hrolle           ###   ########.fr       */
+/*   Created: 2022/11/28 20:55:15 by hrolle            #+#    #+#             */
+/*   Updated: 2022/11/28 21:03:03 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
 
-/*
-	Displays env variables
-	The order we see is when items are created
-*/
-int	ft_env(int fd)
+int	builtin_set_file(t_cmdli *cmdli)
 {
-	t_variable	*env;
-
-	env = ft_get_env();
-	if (!env)
-		return (0);
-	while (env)
+	if (cmdli->file_out)
 	{
-		if (!env->value)
-			ft_printfd(fd, "%s\n", env->name);
-		else
-			ft_printfd(fd, "%s=%s\n", env->name, env->value);
-		env = env->next;
+		if (set_file_out(cmdli))
+			return (1);
 	}
-	return (0);
+	else
+		cmdli->fd_out = 1;
+	if (cmdli->file_in)
+		if (set_file_in(cmdli))
+			return (1);
+	return (0);	
 }

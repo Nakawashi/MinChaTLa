@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 19:07:54 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/28 20:48:48 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handle_interrupt(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	g_errno = 130;
+	g_errno = 128 + sig;
 }
 
 /*
@@ -42,7 +42,6 @@ void	sig_handler(t_shell *shell)
 	struct termios	term_flag;
 
 	tcgetattr(0, &term_flag);
-	//	perror("tcgetattr() error");
 	term_flag.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &term_flag);
 	sigaction(SIGINT, &shell->sa_interrupt, NULL);

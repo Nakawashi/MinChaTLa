@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/26 03:35:45 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/11/28 21:12:02 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void		handle_interrupt_test(int sig);
 void		sig_handler_test(t_shell *shell);
 
 // Builtins
-int			ft_env(void);
+int			ft_env(int fd);
 int			put_node(t_variable **export, t_variable *current,
 				t_variable *prev, t_variable *new);
 int			ft_export(t_cmdli *cmdli);
@@ -207,6 +207,9 @@ char		*no_path(char *cmd, char *path);
 int			close_pipe(int	*pipe);
 int			close_and_free(t_cmdli *cmdli);
 void		write_heredoc(t_cmdli *cmdli);
+int			set_file_out(t_cmdli *cmdli);
+int			set_file_in(t_cmdli *cmdli);
+int			builtin_set_file(t_cmdli *cmdli);
 
 // Readline
 void		rl_replace_line(const char *text, int clear_undo);

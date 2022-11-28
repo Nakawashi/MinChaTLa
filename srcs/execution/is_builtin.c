@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 19:26:12 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/28 21:12:46 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 */
 int	exec_builtin(t_cmdli **cmdli, char *read)
 {
-
 	if (ft_strcmp((*cmdli)->cmd, "env") == 0)
-		g_errno = ft_env();
+		g_errno = ft_env((*cmdli)->fd_out);
 	else if (ft_strcmp((*cmdli)->cmd, "export") == 0)
 		ft_export((*cmdli));
 	else if (ft_strcmp((*cmdli)->cmd, "unset") == 0)
