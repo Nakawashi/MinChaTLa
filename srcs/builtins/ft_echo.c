@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 00:32:45 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/25 17:24:16 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/28 23:06:13 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,27 @@ typedef struct S_echoptions
 	int	c;
 }		t_echoptions;
 
-static void	put_bs(char c)
+static void	put_bs(char c, int fd)
 {
 	if (c == '\\')
-		write(1, "\\", 1);
+		write(fd, "\\", 1);
 	else if (c == 'a')
-		write(1, "\a", 1);
+		write(fd, "\a", 1);
 	else if (c == 'b')
-		write(1, "\b", 1);
+		write(fd, "\b", 1);
 	else if (c == 'e')
-		write(1, "\e", 1);
+		write(fd, "\e", 1);
 	else if (c == 'f')
-		write(1, "\f", 1);
+		write(fd, "\f", 1);
 	else if (c == 'r')
-		write(1, "\r", 1);
+		write(fd, "\r", 1);
 	else if (c == 't')
-		write(1, "\t", 1);
+		write(fd, "\t", 1);
 	else if (c == 'v')
-		write(1, "\v", 1);
+		write(fd, "\v", 1);
 }
 
-static void	putstr_bs(char *s, t_echoptions *options)
+static void	putstr_bs(char *s, t_echoptions *options, int fd)
 {
 	while (*s)
 	{
@@ -48,18 +48,18 @@ static void	putstr_bs(char *s, t_echoptions *options)
 			if (*(++s) == 'n')
 			{
 				if (options->c)
-					write(1, "$", 1);
-				write(1, "\n", 1);
+					write(fd, "$", 1);
+				write(fd, "\n", 1);
 			}
 			else if (*s)
-				put_bs(*s);
+				put_bs(*s, fd);
 			if (*s)
 				++s;
 		}
 		else if (options->c && *s == '\n')
-			write(1, "$", 1);
+			write(fd, "$", 1);
 		else if (*s)
-			write(1, s++, 1);
+			write(fd, s++, 1);
 	}
 }
 
@@ -96,14 +96,14 @@ char	**set_options(char **ss, t_echoptions *options)
 	return (ss);
 }
 
-int	ft_echo(char **ss)
+int	ft_echo(char **ss, int fd)
 {
 	t_echoptions	options;
 
 	g_errno = 0;
 	if (!ss || !*ss)
 	{
-		write(1, "\n", 1);
+		write(fd, "\n", 1);
 		return (g_errno);
 	}
 	ss = set_options(ss, &options);
@@ -111,16 +111,16 @@ int	ft_echo(char **ss)
 	{
 		while (*ss && *(ss + 1))
 		{
-			putstr_bs(*(ss++), &options);
-			write(1, " ", 1);
+			putstr_bs(*(ss++), &options, fd);
+			write(fd, " ", 1);
 		}
-		putstr_bs(*ss, &options);
+		putstr_bs(*ss, &options, fd);
 	}
 	if (!options.n)
 	{
 		if (options.c)
-			write(1, "$", 1);
-		write(1, "\n", 1);
+			write(fd, "$", 1);
+		write(fd, "\n", 1);
 	}
 	return (g_errno);
 }
