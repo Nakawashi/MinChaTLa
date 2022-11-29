@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 21:12:46 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/29 14:27:07 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ int	exec_builtin(t_cmdli **cmdli, char *read)
 	if (ft_strcmp((*cmdli)->cmd, "env") == 0)
 		g_errno = ft_env((*cmdli)->fd_out);
 	else if (ft_strcmp((*cmdli)->cmd, "export") == 0)
-		ft_export((*cmdli));
+	{
+		g_errno = ft_export((*cmdli));
+	}
 	else if (ft_strcmp((*cmdli)->cmd, "unset") == 0)
 		g_errno = ft_unset((*cmdli)->cmd_args);
 	else if (ft_strcmp((*cmdli)->cmd, "pwd") == 0)
-		g_errno = ft_pwd();
+		g_errno = ft_pwd((*cmdli)->fd_out);
 	else if (ft_strcmp((*cmdli)->cmd, "echo") == 0)
-		g_errno = ft_echo(&(*cmdli)->cmd_args[1]);
+		g_errno = ft_echo(&(*cmdli)->cmd_args[1], (*cmdli)->fd_out);
 	else if (ft_strcmp((*cmdli)->cmd, "cd") == 0)
-		g_errno = ft_cd((*cmdli));
+		g_errno = ft_cd((*cmdli)->cmd_args[1], (*cmdli)->fd_out);
 	else if (ft_strcmp((*cmdli)->cmd, "exit") == 0)
 		ft_exit(cmdli, read, 1);
 	else
