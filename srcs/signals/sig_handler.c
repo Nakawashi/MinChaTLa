@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 20:48:48 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/29 19:11:05 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@ void	handle_interrupt(int sig)
 {
 	t_shell	*shell;
 
+	write(1, "\n", 1);
 	shell = ft_get_shell(NULL);
 	if (sig == SIGINT && shell->if_sig)
 	{
-		write(1, "\n", 1);
 		ft_print_prompt();
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_errno = 1;
 	}
-	g_errno = 128 + sig;
+	else if (sig == SIGINT && !shell->if_sig)
+		g_errno = 128 + sig;
 }
 
 /*
