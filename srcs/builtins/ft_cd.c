@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 17:45:29 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/29 21:12:47 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_cd(t_cmdli **cmdli)
 	char	*actual_path;
 	char	buff[PATH_MAX];
 
+	g_errno = 0;
 	actual_path = getcwd(buff, PATH_MAX);
 	update_node("OLDPWD", actual_path);
 	new_path = NULL;
@@ -65,9 +66,8 @@ void	ft_cd(t_cmdli **cmdli)
 	{
 		if (new_path)
 			free(new_path);
-		ft_printfd((*cmdli)->fd_out, "cd: %s: %s\n", strerror(errno), 
+		ft_printfd((*cmdli)->fd_out, "cd: %s: %s\n", strerror(errno),
 			(*cmdli)->cmd_args[1]);
 		g_errno = 1;
 	}
-	g_errno = 0;
 }
