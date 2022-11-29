@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 14:54:55 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:02:25 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	put_node(t_variable **export, t_variable *current,
 	return (1);
 }
 
-int	ft_export(t_cmdli *cmdli)
+void	ft_export(t_cmdli **cmdli)
 {
 	t_shell		*shell;
 	t_variable	*new;
@@ -77,20 +77,19 @@ int	ft_export(t_cmdli *cmdli)
 	g_errno = 0;
 	shell = ft_get_shell(NULL);
 	new = NULL;
-	if (cmdli->cmd_args[1])
+	if ((*cmdli)->cmd_args[1])
 	{
 		i = 1;
-		while (cmdli->cmd_args[i])
+		while ((*cmdli)->cmd_args[i])
 		{
-			if (check_non_authorized_names(cmdli->cmd_args[i], &i))
+			if (check_non_authorized_names((*cmdli)->cmd_args[i], &i))
 				continue ;
-			new = create_var_node(cmdli->cmd_args[i++]);
+			new = create_var_node((*cmdli)->cmd_args[i++]);
 			replace_node(&shell->export, new);
 			if (new->value)
 				replace_node_env(shell->env, new);
 		}
 	}
 	else
-		print_export();
-	return (g_errno);
+		print_export(cmdli);
 }

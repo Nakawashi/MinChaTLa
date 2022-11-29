@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 00:32:45 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/28 23:06:13 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:32:12 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,13 @@ static void	putstr_bs(char *s, t_echoptions *options, int fd)
 	}
 }
 
-void	init_options(t_echoptions *options)
-{
-	options->n = 0;
-	options->e = 0;
-	options->c = 0;
-}
-
 char	**set_options(char **ss, t_echoptions *options)
 {
 	unsigned int	i;
 
-	init_options(options);
+	options->n = 0;
+	options->e = 0;
+	options->c = 0;
 	while (*ss && (*ss)[0] == '-')
 	{
 		if (ft_strinset((*ss) + 1, "enc"))
@@ -96,31 +91,34 @@ char	**set_options(char **ss, t_echoptions *options)
 	return (ss);
 }
 
-int	ft_echo(char **ss, int fd)
+void	print_while(t_cmdli **cmdli, char **ss, t_echoptions *options)
 {
-	t_echoptions	options;
-
-	g_errno = 0;
-	if (!ss || !*ss)
-	{
-		write(fd, "\n", 1);
-		return (g_errno);
-	}
-	ss = set_options(ss, &options);
-	if (*ss)
-	{
 		while (*ss && *(ss + 1))
 		{
-			putstr_bs(*(ss++), &options, fd);
-			write(fd, " ", 1);
+			putstr_bs(*(ss++), options, (*cmdli)->fd_out);
+			write((*cmdli)->fd_out, " ", 1);
 		}
-		putstr_bs(*ss, &options, fd);
-	}
+		putstr_bs(*ss, options, (*cmdli)->fd_out);
+}
+
+void	ft_echo(t_cmdli **cmdli)
+{
+	t_echoptions	options;
+	char			**ss;
+
+	ss = (*cmdli)->cmd_args;
+	if (ss && *ss)
+		ss++;
+	g_errno = 0;
+	if (!ss || !*ss)
+		write((*cmdli)->fd_out, "\n", 1);
+	ss = set_options(ss, &options);
+	if (*ss)
+		print_while(cmdli, ss, &options);
 	if (!options.n)
 	{
 		if (options.c)
-			write(fd, "$", 1);
-		write(fd, "\n", 1);
+			write((*cmdli)->fd_out, "$", 1);
+		write((*cmdli)->fd_out, "\n", 1);
 	}
-	return (g_errno);
 }

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 19:42:59 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/29 17:18:27 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,33 @@ static void	free_shell_variables(void)
 		free_nodes(&shell->env);
 }
 
-void	ft_exit(t_cmdli **cmdli, char *read, int mode)
+void	ft_exit(t_cmdli **cmdli)
 {
 	int	code;
 
-	if (mode)
+	code = check_exit_code((*cmdli)->cmd_args);
+	if (code != 255 && (*cmdli)->cmd_args && (*cmdli)->cmd_args[1]
+		&& (*cmdli)->cmd_args[2])
 	{
-		code = check_exit_code((*cmdli)->cmd_args);
-		if (code != 255 && (*cmdli)->cmd_args && (*cmdli)->cmd_args[1]
-			&& (*cmdli)->cmd_args[2])
-		{
-			ft_printfd(2, "#+wminishell#0: exit: #/rtoo many arguments#0\n");
-			g_errno = 1;
-			return ;
-		}
+		ft_printfd(2, "#+wminishell#0: exit: #/rtoo many arguments#0\n");
+		g_errno = 1;
+		return ;
 	}
-	else
-		code = 0;
 	print_and_say("Good bye ! See you soon ;)", "Good bye ! See you soon !");
 	free_shell_variables();
 	free_cmdli(cmdli);
-	if (read)
-		free(read);
+	if (ft_get_shell(NULL)->read)
+		free(ft_get_shell(NULL)->read);
 	clear_history();
 	exit(code % 256);
+}
+
+void	ft_sig_exit(void)
+{
+	print_and_say("Good bye ! See you soon ;)", "Good bye ! See you soon !");
+	free_shell_variables();
+	if (ft_get_shell(NULL)->read)
+		free(ft_get_shell(NULL)->read);
+	clear_history();
+	exit(0);
 }

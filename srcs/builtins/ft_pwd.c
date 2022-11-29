@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:07 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 00:54:46 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:04:47 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "../../printfd/HEADER/ft_printfd.h"
 
 // getcwd : Get the name of the current working directory
-int	ft_pwd(int fd)
+void	ft_pwd(t_cmdli **cmdli)
 {
 	char	*cwd;
 	char	buff[PATH_MAX];
 
 	cwd = getcwd(buff, PATH_MAX);
 	if (cwd != NULL)
-		ft_printfd(fd, "%s\n", cwd);
-	return (0);
+		ft_printfd((*cmdli)->fd_out, "%s\n", cwd);
+		g_errno = 0;
 }

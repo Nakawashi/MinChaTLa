@@ -3,40 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 14:27:07 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:55:13 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
 
-/*
-	run the builtin
-*/
-int	exec_builtin(t_cmdli **cmdli, char *read)
+int	close_and_free_builtin(t_cmdli *cmdli)
 {
-	if (ft_strcmp((*cmdli)->cmd, "env") == 0)
-		g_errno = ft_env((*cmdli)->fd_out);
-	else if (ft_strcmp((*cmdli)->cmd, "export") == 0)
+	if (cmdli->pipe_in)
+		close_pipe(cmdli->pipe_in);
+	if (cmdli->file_in)
 	{
-		g_errno = ft_export((*cmdli));
+		free_tab(cmdli->file_in);
+		cmdli->file_in = NULL;
 	}
-	else if (ft_strcmp((*cmdli)->cmd, "unset") == 0)
-		g_errno = ft_unset((*cmdli)->cmd_args);
-	else if (ft_strcmp((*cmdli)->cmd, "pwd") == 0)
-		g_errno = ft_pwd((*cmdli)->fd_out);
-	else if (ft_strcmp((*cmdli)->cmd, "echo") == 0)
-		g_errno = ft_echo(&(*cmdli)->cmd_args[1], (*cmdli)->fd_out);
-	else if (ft_strcmp((*cmdli)->cmd, "cd") == 0)
-		g_errno = ft_cd((*cmdli)->cmd_args[1], (*cmdli)->fd_out);
-	else if (ft_strcmp((*cmdli)->cmd, "exit") == 0)
-		ft_exit(cmdli, read, 1);
+	if (cmdli->file_out)
+	{
+		free_file(cmdli->file_out);
+		cmdli->file_out = NULL;
+	}
+	return (0);
+}
+
+int	builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli)
+{
+	write_heredoc((*cmdli));
+	if ((*cmdli)->pipe_out)
+		if (pipe((*cmdli)->pipe_out) == -1)
+			return (return_error(errno, NULL));
+	(*cmdli)->pid = fork();
+	if ((*cmdli)->pid == -1)
+		return (return_error(errno, NULL));
+	else if (!(*cmdli)->pid)
+	{
+		set_redirection((*cmdli));
+		(*cmdli)->fd_out = STDOUT_FILENO;
+		f(cmdli);
+		exit (g_errno);
+	}
+	return (close_and_free_builtin((*cmdli)));
+}
+
+void	exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode)
+{
+	ft_printfd(2, "Is a builtin !!!\n");
+	if (mode)
+		builtin_fork(f, cmdli);
 	else
-		return (0);
-	return (1);
+	{
+		if (!builtin_set_file(*cmdli))
+			f(cmdli);
+		if ((*cmdli)->fd_out != -1 && (*cmdli)->fd_out != 1)
+			close((*cmdli)->fd_out);
+		if ((*cmdli)->fd_in != -1)
+			close((*cmdli)->fd_in);
+	}
+}
+
+void	is_builtin(t_cmdli **cmdli, int mode)
+{
+	if (!ft_strcmp((*cmdli)->cmd, "env"))
+		exec_builtin(ft_env, cmdli, mode);
+	else if (!ft_strcmp((*cmdli)->cmd_args[0], "export"))//------
+		exec_builtin(ft_export, cmdli, mode);
+	else if (!ft_strcmp((*cmdli)->cmd, "unset"))
+		exec_builtin(ft_unset, cmdli, mode);
+	else if (!ft_strcmp((*cmdli)->cmd, "pwd"))
+		exec_builtin(ft_pwd, cmdli, mode);
+	else if (!ft_strcmp((*cmdli)->cmd, "echo"))
+		exec_builtin(ft_echo, cmdli, mode);
+	else if (!ft_strcmp((*cmdli)->cmd, "cd"))
+		exec_builtin(ft_cd, cmdli, mode);
+	else if (!ft_strcmp((*cmdli)->cmd, "exit"))
+		exec_builtin(ft_exit, cmdli, mode);
+	else
+		exec_cmd(*cmdli);
 }
 
 /*
@@ -44,23 +90,23 @@ int	exec_builtin(t_cmdli **cmdli, char *read)
 	returns 0 : if cmd->cmd is empty or if it's not a builtin
 	returns 1 : if cmd->cmd matches with builtin
 */
-int	is_builtin(t_cmdli *cmdli)
-{
-	const char	*builtins[]
-		= {"echo", "cd", "pwd", "env", "export", "unset", "exit", NULL};
-	int			i;
+// int	is_builtin(t_cmdli *cmdli)
+// {
+// 	const char	*builtins[]
+// 		= {"echo", "cd", "pwd", "env", "export", "unset", "exit", NULL};
+// 	int			i;
 
-	if (!cmdli || !cmdli->cmd)
-		return (0);
-	i = 0;
-	while (builtins[i])
-	{
-		if (!ft_strcmp(builtins[i], cmdli->cmd))
-			return (1);
-		++i;
-	}
-	return (0);
-}
+// 	if (!cmdli || !cmdli->cmd)
+// 		return (0);
+// 	i = 0;
+// 	while (builtins[i])
+// 	{
+// 		if (!ft_strcmp(builtins[i], cmdli->cmd))
+// 			return (1);
+// 		++i;
+// 	}
+// 	return (0);
+// }
 
 // int	run_builtin(const char *str, t_cmdli *cmd, t_shell *shell, int len)
 // {
@@ -74,11 +120,11 @@ int	is_builtin(t_cmdli *cmdli)
 // 	else if (!cmd->pid)
 // 	{
 // 		set_redirection(cmd);
-// 		if (ft_strncmp(str, "env", len) == 0)
+// 		if (ft_strncmp(str, "env", len))
 // 			ft_env(shell);
-// 		else if (ft_strncmp(str, "export", len) == 0)
+// 		else if (ft_strncmp(str, "export", len))
 // 			ft_export(shell, cmd);
-// 		else if (ft_strncmp(str, "pwd", len) == 0)
+// 		else if (ft_strncmp(str, "pwd", len))
 // 			ft_pwd();
 // 		if (!ft_strncmp(str, "echo", len))
 // 			ft_echo(&cmd->cmd_args[1]);

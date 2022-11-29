@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/25 17:18:24 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:53:56 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,17 @@ static void	skip_node(t_variable *node, char *arg, int is_env)
 	If exists : skip next node, replace its address with next next's one
 	(in both env and export lists)
 */
-int	ft_unset(char **args)
+void	ft_unset(t_cmdli **cmdli)
 {
 	int			i;
+	char		**args;
 	t_variable	*env;
 	t_variable	*export;
 
+	g_errno = 0;
+	args = (*cmdli)->cmd_args;
 	if (!args || !args[0])
-		return (0);
+		return ;
 	i = 1;
 	while (args[i])
 	{
@@ -56,5 +59,4 @@ int	ft_unset(char **args)
 		skip_node(export, args[i], 0);
 		++i;
 	}
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/25 14:35:27 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:03:17 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i)
 	no  '='	: value is null
 	yes '='	: value is empty string
 */
-int	print_export(void)
+int	print_export(t_cmdli **cmdli)
 {
 	t_variable	*export;
 
@@ -65,9 +65,9 @@ int	print_export(void)
 	while (export)
 	{
 		if (!export->value)
-			printf("declare -x %s\n", export->name);
+			ft_printfd((*cmdli)->fd_out, "declare -x %s\n", export->name);
 		else
-			printf("declare -x %s=\"%s\"\n", export->name, export->value);
+			ft_printfd((*cmdli)->fd_out, "declare -x %s=\"%s\"\n", export->name, export->value);
 		export = export->next;
 	}
 	return (1);

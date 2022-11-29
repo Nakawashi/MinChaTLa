@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/28 19:27:51 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/29 18:24:22 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	close_and_free(t_cmdli *cmdli)
 {
 	if (cmdli->pipe_in)
 		close_pipe(cmdli->pipe_in);
-	if (cmdli->cmd && is_builtin(cmdli) == 0)
+	if (cmdli->cmd)
 	{
 		free(cmdli->cmd);
 		cmdli->cmd = NULL;
@@ -64,7 +64,7 @@ void	write_heredoc(t_cmdli *cmdli)
 		return (void_error(errno, NULL));
 }
 
-int	exec_cmd(t_cmdli *cmdli, char *read)
+int	exec_cmd(t_cmdli *cmdli)
 {
 	cmdli->cmd = get_absolute_path(cmdli->cmd, ft_get_var("PATH"));
 	if (!cmdli->cmd)
@@ -79,8 +79,6 @@ int	exec_cmd(t_cmdli *cmdli, char *read)
 	else if (!cmdli->pid)
 	{
 		set_redirection(cmdli);
-		if (exec_builtin(&cmdli, read) == 1)
-			exit(g_errno);
 		if (execve(cmdli->cmd, cmdli->cmd_args, ft_get_str_env()) == -1)
 		{
 			g_errno = errno;

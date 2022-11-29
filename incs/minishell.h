@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 00:55:24 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:00:25 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_shell
 	t_variable			*env;
 	t_variable			*export;
 	char				**str_env;
+	char				*read;
 	int					if_sig;
 	int					say;
 	struct sigaction	sa_interrupt;
@@ -172,18 +173,19 @@ void		handle_interrupt_test(int sig);
 void		sig_handler_test(t_shell *shell);
 
 // Builtins
-int			ft_env(int fd);
+void		ft_env(t_cmdli **cmdli);
 int			put_node(t_variable **export, t_variable *current,
 				t_variable *prev, t_variable *new);
-int			ft_export(t_cmdli *cmdli);
-int			ft_unset(char **args);
-int			ft_pwd(int fd);
-void		ft_exit(t_cmdli **cmdli, char *read, int mode);
-int			ft_cd(char *str, int fd);
-int			ft_echo(char **ss, int fd);
+void		ft_export(t_cmdli **cmdli);
+void		ft_unset(t_cmdli **cmdli);
+void		ft_pwd(t_cmdli **cmdli);
+void		ft_exit(t_cmdli **cmdli);
+void		ft_sig_exit(void);
+void		ft_cd(t_cmdli **cmdli);
+void		ft_echo(t_cmdli **cmdli);
 
 // ft_export_utils.c
-int			print_export(void);
+int			print_export(t_cmdli **cmdli);
 int			export_inset(char *s);
 void		free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i);
 int			check_non_authorized_names(char *str, int *i);
@@ -193,12 +195,17 @@ void		replace_node(t_variable **export, t_variable *new);
 void		replace_node_env(t_variable *env, t_variable *new);
 
 // Binaries
-int			exec_cmd(t_cmdli *cmdli, char *read);
+int			exec_cmd(t_cmdli *cmdli);
 int			no_cmd(t_cmdli *cmdli);
 
 // Execution
-int			is_builtin(t_cmdli *cmdli);
-int			exec_builtin(t_cmdli **cmdli, char *read);
+void		is_builtin(t_cmdli **cmdli, int mode);
+void		exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode);
+int			builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli);
+
+
+// int			is_builtin(t_cmdli *cmdli);
+// int			exec_builtin(t_cmdli **cmdli);
 void		is_absolute_path(char **args, t_list *env);
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd, char *path);

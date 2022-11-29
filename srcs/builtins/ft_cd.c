@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/28 23:14:38 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:45:29 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	update_node(char *name, char *value)
 	Must update OLDPWD variable at first use of cd
 	Must update PWD variable after chdir
 */
-int	ft_cd(char *str, int fd)
+void	ft_cd(t_cmdli **cmdli)
 {
 	char	*new_path;
 	char	*actual_path;
@@ -50,10 +50,10 @@ int	ft_cd(char *str, int fd)
 	actual_path = getcwd(buff, PATH_MAX);
 	update_node("OLDPWD", actual_path);
 	new_path = NULL;
-	if (!str)
+	if (!(*cmdli)->cmd_args[1])
 		new_path = ft_get_var("HOME");
-	else if (str)
-		new_path = ft_strdup(str);
+	else if ((*cmdli)->cmd_args[1])
+		new_path = ft_strdup((*cmdli)->cmd_args[1]);
 	if (!chdir(new_path))
 	{
 		if (new_path)
@@ -65,9 +65,9 @@ int	ft_cd(char *str, int fd)
 	{
 		if (new_path)
 			free(new_path);
-		ft_printfd(fd, "cd: %s: %s\n", strerror(errno), str);
+		ft_printfd((*cmdli)->fd_out, "cd: %s: %s\n", strerror(errno), 
+			(*cmdli)->cmd_args[1]);
 		g_errno = 1;
 	}
 	g_errno = 0;
-	return (g_errno);
 }
