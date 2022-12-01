@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 17:10:05 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/18 10:25:45 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/12/01 00:37:49 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_print_prompt(void)
 	char			cwd[PATH_MAX];
 	char			*git_path;
 	const char		*prompt_elem[] = {
-		"\033[1;32mMiniShell 🍋 \033[0;31m[ ",
+		"\033[1;37mMinChatLà 🐈 \033[0;31m[ ",
 		"\033[0;31m ]\033[0m", "\033[0;32m on [ \033[1;34m", "\033[0;32m ]\033[0m",
 		NULL};
 
@@ -40,7 +40,7 @@ char	*ft_prompt(void)
 	char			cwd[PATH_MAX];
 	char			*git_path;
 	const char		*prompt_elem[] = {
-		"\033[1;32mMiniShell 🍋 \033[0;31m[ ",
+		"\033[1;37mMinChatLà 🐈 \033[0;31m[ ",
 		"\033[0;31m ]\033[0m", "\033[0;32m on [ \033[1;34m", "\033[0;32m ]\033[0m",
 		"\n\033[1m% 👉 \033[0m", NULL};
 

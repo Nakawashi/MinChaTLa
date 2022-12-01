@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 18:55:13 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 01:27:50 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int	close_and_free_builtin(t_cmdli *cmdli)
 
 int	builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli)
 {
-	write_heredoc((*cmdli));
-	if ((*cmdli)->pipe_out)
+	//ft_get_shell(NULL)->if_sig = 0;
+	if ((*cmdli)->pipe_out && (*cmdli)->pipe_out[0] == -1
+		&& (*cmdli)->pipe_out[1] == -1)
 		if (pipe((*cmdli)->pipe_out) == -1)
 			return (return_error(errno, NULL));
 	(*cmdli)->pid = fork();
@@ -51,9 +52,12 @@ int	builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli)
 
 void	exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode)
 {
-	ft_printfd(2, "Is a builtin !!!\n");
 	if (mode)
+	{
+		sig_mode(3);
 		builtin_fork(f, cmdli);
+		sig_mode(0);
+	}
 	else
 	{
 		if (!builtin_set_file(*cmdli))
@@ -69,7 +73,7 @@ void	is_builtin(t_cmdli **cmdli, int mode)
 {
 	if (!ft_strcmp((*cmdli)->cmd, "env"))
 		exec_builtin(ft_env, cmdli, mode);
-	else if (!ft_strcmp((*cmdli)->cmd_args[0], "export"))//------
+	else if (!ft_strcmp((*cmdli)->cmd_args[0], "export"))
 		exec_builtin(ft_export, cmdli, mode);
 	else if (!ft_strcmp((*cmdli)->cmd, "unset"))
 		exec_builtin(ft_unset, cmdli, mode);
@@ -79,10 +83,15 @@ void	is_builtin(t_cmdli **cmdli, int mode)
 		exec_builtin(ft_echo, cmdli, mode);
 	else if (!ft_strcmp((*cmdli)->cmd, "cd"))
 		exec_builtin(ft_cd, cmdli, mode);
-	else if (!ft_strcmp((*cmdli)->cmd, "exit"))
+	else if (!ft_strcmp((*cmdli)->cmd, "exit")
+			|| !ft_strcmp((*cmdli)->cmd, "bye"))
 		exec_builtin(ft_exit, cmdli, mode);
 	else
+	{
+		sig_mode(1);
 		exec_cmd(*cmdli);
+		sig_mode(0);
+	}
 }
 
 /*

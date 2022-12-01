@@ -6,53 +6,91 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/10/25 23:05:31 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 01:08:15 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char	*ft_strjoin_nl(char *s1, char *s2)
+static int double_free_hehe(char **s1, char **s2)
 {
-	char	*str;
-	char	*ret;
-
-	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 2) * sizeof(char));
-	ret = str;
-	if (!str)
-		return (0);
-	while (s1 && *s1)
-		*(str++) = *(s1++);
-	while (s2 && *s2)
-		*(str++) = *(s2++);
-	*(str++) = '\n';
-	*str = 0;
-	return (ret);
+	if (*s1)
+		free(*s1);
+	if (*s2)
+		free(*s2);
+	return (1);
 }
 
-char	*heredoc(char *limit)
+int	heredoc(t_cmdli **cmdli, char *limit)
 {
 	char	*line;
-	char	*ret;
-	char	*tmp;
-
-	ret = NULL;
+ 
 	while (1)
 	{
 		line = readline("heredoc> ");
-		if (ft_strcmp(line, limit))
+		if (line && ft_strcmp(line, limit))
 		{
-			tmp = ret;
-			ret = ft_strjoin_nl(tmp, line);
-			free(tmp);
+			if (write((*cmdli)->pipe_in[1], line, ft_strlen(line)) == -1
+				|| write((*cmdli)->pipe_in[1], "\n", 1) == -1)
+			{
+				if (double_free_hehe(&line, &limit))
+					return (1);
+			}
 			free(line);
 		}
 		else
 		{
-			free(line);
+			if (line)
+				free(line);
 			break ;
 		}
 	}
+	close((*cmdli)->pipe_in[1]);
 	free(limit);
-	return (ret);
+	exit(0);
+}
+
+void	write_heredoc(t_cmdli **cmdli, char *limit)
+{
+	pid_t	pid;
+	int		status;
+
+	(*cmdli)->here_doc = ft_strdup("heredoc");
+	if (!(*cmdli)->pipe_in)
+	{
+		(*cmdli)->pipe_in = malloc(2 * sizeof(int));
+		if (!(*cmdli)->pipe_in)
+			return (error_cmdli(cmdli, "memory allocation failed"));
+	}
+	if (pipe((*cmdli)->pipe_in) == -1)
+		return (error_cmdli(cmdli, strerror(errno)));
+	sig_mode(0);
+	pid = fork();
+	if (pid == -1)
+		return (error_cmdli(cmdli, strerror(errno)));
+	else if (!pid)
+	{
+		sig_mode(3);
+		close((*cmdli)->pipe_in[0]);
+		if (heredoc(cmdli, limit))
+		{
+			close((*cmdli)->pipe_in[1]);
+			exit_error(errno, NULL);
+		}
+	}
+	else
+	{
+		//signal(SIGINT, SIG_IGN);
+		waitpid(pid, &status, 0);
+		sig_mode(1);
+		if (WIFEXITED(status))
+			g_errno = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			g_errno = WTERMSIG(status);
+		free(limit);
+		if (g_errno)
+		{
+			return (error_cmdli(cmdli, strerror(g_errno)));
+		}
+	}
 }

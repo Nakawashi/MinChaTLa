@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 18:28:21 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 01:51:55 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "printfd/HEADER/ft_printfd.h"
 #include <stdio.h>
 
+/*
+	while (wait(&status) != -1)
+		if (WIFEXITED(status))
+			g_errno = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			g_errno = WTERMSIG(status);
+*/
 int	main(int ac, char **av, char **env)
 {
 	t_shell	shell;
@@ -30,7 +37,9 @@ int	main(int ac, char **av, char **env)
 		shell.say = 0;
 	//print_minishell();
 	(void)av;
-	sig_handler(&shell);
+	term_handler(&shell);
+	signal(SIGQUIT, SIG_IGN); // NE PAS SUPPRIMER
+	sig_mode(1);
 	while (true)
 	{
 		shell.read = readline(ft_prompt());
@@ -45,21 +54,22 @@ int	main(int ac, char **av, char **env)
 				cmdli_i = cmdli;
 				while (cmdli_i)
 				{
+					sig_mode(1);
 					if (!cmdli_i->cmd)
 						no_cmd(cmdli_i);
 					else if (cmdli_i->pipe_in || cmdli_i->pipe_out)
 						is_builtin(&cmdli_i, 1);
 					else
 						is_builtin(&cmdli_i, 0);
-					shell.if_sig = 0;//------------move to exec_cmd
+					sig_mode(0);
 					cmdli_i = cmdli_i->next;
 				}
-
 				while (wait(&status) != -1)
 					if (WIFEXITED(status))
 						g_errno = WEXITSTATUS(status);
-				// g_errno = WEXITSTATUS(status);
-				shell.if_sig = 1;
+					else if (WIFSIGNALED(status))
+						g_errno = WTERMSIG(status);
+				sig_mode(1);
 				free_cmdli(&cmdli);
 			}
 			free(shell.read);

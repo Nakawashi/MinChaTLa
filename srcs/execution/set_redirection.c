@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:10:11 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/28 21:01:15 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 02:22:52 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	set_file_out(t_cmdli *cmdli)
 {
 	unsigned int	i;
 
+	//ft_printfd(2, "Hello ! i'm here !\n");
 	i = 0;
 	while (cmdli->file_out[i])
 	{
@@ -62,7 +63,7 @@ int	set_file_out(t_cmdli *cmdli)
 
 void	set_in(t_cmdli *cmdli)
 {
-	if (cmdli->fd_in != -1 && !cmdli->here_doc)
+	if (cmdli->file_in && cmdli->fd_in != -1 && !cmdli->here_doc)
 	{
 		dup2(cmdli->fd_in, STDIN_FILENO);
 		close(cmdli->fd_in);
@@ -81,6 +82,7 @@ void	set_out(t_cmdli *cmdli)
 	if (cmdli->fd_out != -1)
 	{
 		dup2(cmdli->fd_out, STDOUT_FILENO);
+		//ft_printfd(2, "Hello ! The cmd is %s\ni'm also here (after the dup2) while the fd_out is [%d] !\n",cmdli->cmd, cmdli->fd_out);
 		close(cmdli->fd_out);
 		if (cmdli->pipe_out)
 			close_pipe(cmdli->pipe_out);

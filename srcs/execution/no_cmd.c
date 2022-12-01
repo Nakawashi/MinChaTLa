@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/26 02:26:17 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/12/01 01:21:59 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int	no_cmd(t_cmdli *cmdli)
 {
-	write_heredoc(cmdli);
-	if (cmdli->pipe_out)
+	if (cmdli->pipe_out && cmdli->pipe_out[0] == -1
+		&& cmdli->pipe_out[1] == -1)
 		if (pipe(cmdli->pipe_out) == -1)
 			return (return_error(errno, NULL));
 	cmdli->pid = fork();

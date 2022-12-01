@@ -8,6 +8,7 @@ NAME="../minishell"
 # make re -C ..
 
 # ctrl c dois mettre errno à 1
+# test ctrl c et ctrl d pendant here_doc
 
 make re -C ..
 

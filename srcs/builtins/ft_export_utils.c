@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/29 19:03:17 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/29 20:00:50 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	print_export(t_cmdli **cmdli)
 		if (!export->value)
 			ft_printfd((*cmdli)->fd_out, "declare -x %s\n", export->name);
 		else
-			ft_printfd((*cmdli)->fd_out, "declare -x %s=\"%s\"\n", export->name, export->value);
+			ft_printfd((*cmdli)->fd_out, "declare -x %s=\"%s\"\n",
+				export->name, export->value);
 		export = export->next;
 	}
 	return (1);

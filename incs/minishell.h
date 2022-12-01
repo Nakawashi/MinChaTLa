@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 19:00:25 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 00:07:19 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ typedef struct s_shell
 	char				*read;
 	int					if_sig;
 	int					say;
-	struct sigaction	sa_interrupt;
-	struct sigaction	sa_backslash;
 }	t_shell;
 
 typedef enum e_type
@@ -167,10 +165,8 @@ t_variable	*init_export(void);
 
 // Signals
 void		handle_interrupt(int sig);
-void		sig_handler(t_shell *shell);
-
-void		handle_interrupt_test(int sig);
-void		sig_handler_test(t_shell *shell);
+void		sig_mode(int mode);
+void		term_handler(t_shell *shell);
 
 // Builtins
 void		ft_env(t_cmdli **cmdli);
@@ -203,7 +199,6 @@ void		is_builtin(t_cmdli **cmdli, int mode);
 void		exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode);
 int			builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli);
 
-
 // int			is_builtin(t_cmdli *cmdli);
 // int			exec_builtin(t_cmdli **cmdli);
 void		is_absolute_path(char **args, t_list *env);
@@ -213,7 +208,8 @@ int			ft_strchr_path(char *s, char *path, int c);
 char		*no_path(char *cmd, char *path);
 int			close_pipe(int	*pipe);
 int			close_and_free(t_cmdli *cmdli);
-void		write_heredoc(t_cmdli *cmdli);
+//void		write_heredoc(t_cmdli *cmdli);
+void		write_heredoc(t_cmdli **cmdli, char *limit);
 int			set_file_out(t_cmdli *cmdli);
 int			set_file_in(t_cmdli *cmdli);
 int			builtin_set_file(t_cmdli *cmdli);
@@ -223,7 +219,8 @@ void		rl_replace_line(const char *text, int clear_undo);
 t_token		*get_token(t_shell *shell);
 
 // Heredoc
-char		*heredoc(char *limit);
+//char		*heredoc(char *limit);
+int			heredoc(t_cmdli **cmdli, char *limit);
 
 //Secure
 char		**free_tab_null(char **ss);

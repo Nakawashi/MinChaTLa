@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 00:32:45 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/29 18:32:12 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/11/29 20:00:25 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ char	**set_options(char **ss, t_echoptions *options)
 
 void	print_while(t_cmdli **cmdli, char **ss, t_echoptions *options)
 {
-		while (*ss && *(ss + 1))
-		{
-			putstr_bs(*(ss++), options, (*cmdli)->fd_out);
-			write((*cmdli)->fd_out, " ", 1);
-		}
-		putstr_bs(*ss, options, (*cmdli)->fd_out);
+	while (*ss && *(ss + 1))
+	{
+		putstr_bs(*(ss++), options, (*cmdli)->fd_out);
+		write((*cmdli)->fd_out, " ", 1);
+	}
+	putstr_bs(*ss, options, (*cmdli)->fd_out);
 }
 
 void	ft_echo(t_cmdli **cmdli)
