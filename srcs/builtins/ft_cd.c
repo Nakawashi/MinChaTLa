@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 19:59:54 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 02:27:27 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,20 @@ void	ft_cd(t_cmdli **cmdli)
 	char	*actual_path;
 	char	buff[PATH_MAX];
 
+	g_errno = 0;
 	actual_path = getcwd(buff, PATH_MAX);
 	update_node("OLDPWD", actual_path);
 	new_path = NULL;
 	if (!(*cmdli)->cmd_args[1])
+	{
 		new_path = ft_get_var("HOME");
+		if (!(*new_path))
+		{
+			ft_printfd((*cmdli)->fd_out, "cd: HOME not set\n");
+			free(new_path);
+			return ;
+		}
+	}
 	else if ((*cmdli)->cmd_args[1])
 		new_path = ft_strdup((*cmdli)->cmd_args[1]);
 	if (!chdir(new_path))
@@ -69,5 +78,4 @@ void	ft_cd(t_cmdli **cmdli)
 			(*cmdli)->cmd_args[1]);
 		g_errno = 1;
 	}
-	g_errno = 0;
 }
