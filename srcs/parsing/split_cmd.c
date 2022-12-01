@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:43:55 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/13 17:11:53 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 16:15:51 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ char	*split_cmd_sp_ret(char	**cmdline, char *ret,
 
 char	*split_cmd_sp_add_func(char **cmdline, char *ret, unsigned int *i)
 {
-	if ((*cmdline)[*i] && (*cmdline)[*i] == '$')
+	if (((*cmdline)[*i] && (*cmdline)[*i] == '$'))
 		return (add_var(cmdline, ret, i));
+	if ((*cmdline)[*i] == '~')
+		return (add_home(cmdline, i));
 	// else if ((*cmdline)[*i] && (*cmdline)[*i] == '*')
 	// {
 	// 	(*i)++;
@@ -82,7 +84,9 @@ char	*split_cmd_sp(char **cmdline, unsigned int *i)
 			&& (*cmdline)[*i + j] != ' ' && (*cmdline)[*i + j]
 			!= '<' && (*cmdline)[*i + j] != '>' && (*cmdline)[*i + j]
 			!= '|' && (*cmdline)[*i + j] != '&' && (*cmdline)[*i + j]
-			!= '\'' && (*cmdline)[*i + j] != '"'/* && (*cmdline)[*i + j] != '*'*/)
+			!= '\'' && (*cmdline)[*i + j] != '"' && !(!j && !ret
+			&& (*cmdline)[*i + j] == '~' && ((*cmdline)[*i + j + 1] == '/'
+			|| (*cmdline)[*i + j + 1] == ' ' || !(*cmdline)[*i + j + 1]))/* && (*cmdline)[*i + j] != '*'*/)
 			++j;
 		if (j)
 			ret = split_cmd_sp_ret(cmdline, ret, i, j);

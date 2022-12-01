@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/02 23:01:10 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 17:10:47 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ char	*add_var_free(char *str, char *new)
 	if (!ret)
 		return (NULL);
 	return (ret);
+}
+
+char	*add_home(char **cmdline, unsigned int *i)
+{
+	++*i;
+	return (ft_get_var("HOME"));
 }
 
 char	*add_var(char **cmdline, char *str, unsigned int *i)
