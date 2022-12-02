@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_absolute_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:12:23 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/28 20:40:39 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 01:58:03 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
-
-char	**free_path(char **tab, char *path)
-{
-	if (tab)
-		free_tab(tab);
-	if (path)
-		free(path);
-	return (NULL);
-}
 
 unsigned int	path_counter(char *path)
 {
@@ -34,25 +25,6 @@ unsigned int	path_counter(char *path)
 		path++;
 	}
 	return (count);
-}
-
-char	*path_join(char *path, char *cmd,
-				unsigned int path_len, unsigned int cmd_len)
-{
-	char			*ret;
-	unsigned int	i;
-
-	ret = malloc((path_len + cmd_len + 2) * sizeof(char));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (i < path_len)
-		ret[i++] = *(path++);
-	ret[i++] = '/';
-	while (*cmd)
-		ret[i++] = *(cmd++);
-	ret[i] = 0;
-	return (ret);
 }
 
 char	**split_path(char *path, char *cmd, unsigned int cmd_len)
@@ -82,19 +54,6 @@ char	**split_path(char *path, char *cmd, unsigned int cmd_len)
 	free_path(NULL, path);
 	ret[j] = NULL;
 	return (ret);
-}
-
-char	*no_path(char *cmd, char *path)
-{
-	if (path)
-		free(path);
-	if (access(cmd, X_OK) == -1)
-	{
-		g_errno = 127;
-		ft_printfd(2, "#+wminishell#0: %s: #/r%s#0\n", cmd, "command not found");
-		return (NULL);
-	}
-	return (ft_strdup(cmd));
 }
 
 char	*get_absolute_path(char *cmd, char *path)
