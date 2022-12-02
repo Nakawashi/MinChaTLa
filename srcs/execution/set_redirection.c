@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:10:11 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/01 02:22:52 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 23:07:37 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ void	set_in(t_cmdli *cmdli)
 		dup2(cmdli->fd_in, STDIN_FILENO);
 		close(cmdli->fd_in);
 		if (cmdli->pipe_in)
-			close_pipe(cmdli->pipe_in);
+			close(cmdli->pipe_in[0]);
 	}
 	else if (cmdli->pipe_in)
 	{
 		dup2(cmdli->pipe_in[0], STDIN_FILENO);
-		close_pipe(cmdli->pipe_in);
+		close(cmdli->pipe_in[0]);
 	}
 }
 
@@ -85,12 +85,12 @@ void	set_out(t_cmdli *cmdli)
 		//ft_printfd(2, "Hello ! The cmd is %s\ni'm also here (after the dup2) while the fd_out is [%d] !\n",cmdli->cmd, cmdli->fd_out);
 		close(cmdli->fd_out);
 		if (cmdli->pipe_out)
-			close_pipe(cmdli->pipe_out);
+			close(cmdli->pipe_out[1]);
 	}
 	else if (cmdli->pipe_out)
 	{
 		dup2(cmdli->pipe_out[1], STDOUT_FILENO);
-		close_pipe(cmdli->pipe_out);
+		close(cmdli->pipe_out[1]);
 	}
 }
 

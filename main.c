@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/01 01:51:55 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 00:56:30 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 		shell.say = 1;
 	else
 		shell.say = 0;
-	//print_minishell();
+	print_minishell();
 	(void)av;
 	term_handler(&shell);
 	signal(SIGQUIT, SIG_IGN); // NE PAS SUPPRIMER
@@ -67,8 +67,10 @@ int	main(int ac, char **av, char **env)
 				while (wait(&status) != -1)
 					if (WIFEXITED(status))
 						g_errno = WEXITSTATUS(status);
-					else if (WIFSIGNALED(status))
-						g_errno = WTERMSIG(status);
+				else if (WIFSIGNALED(status))
+					g_errno = WTERMSIG(status);
+				if (WIFSIGNALED(status))
+					write(1, "\n", 1);
 				sig_mode(1);
 				free_cmdli(&cmdli);
 			}

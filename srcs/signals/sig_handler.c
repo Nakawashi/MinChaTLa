@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/01 02:27:58 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 23:25:46 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	handle_interrupt(int sig)
 {
+	if (sig != SIGINT)
+		return ;
 	write(1, "\n", 1);
 	ft_print_prompt();
 	write(1, "\n", 1);

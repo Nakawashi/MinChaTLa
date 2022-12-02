@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/01 16:16:53 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/12/01 23:56:52 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_token
 	struct s_token	*previous;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct S_slist
+{
+	char			*str;
+	struct S_slist	*next;
+}	t_slist;
 
 typedef struct s_variable
 {
@@ -112,6 +118,7 @@ int			files_len(t_file **files);
 char		*split_cmd(char **cmdline, unsigned int *i, char c);
 char		**ft_strsjoin(char *s, char **ss);
 t_file		**file_join(char *file, t_file **files, t_type type);
+char		*token_buff(char *new_token);
 char		*add_var(char **cmdline, char *str, unsigned int *i);
 char		*add_home(char **cmdline, unsigned int *i);
 char		*add_quote(char **cmdline, char *str, unsigned int *i);

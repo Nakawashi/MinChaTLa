@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:43:55 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/01 16:15:51 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/12/01 23:55:37 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,6 @@ char	*split_cmd_sp_add_func(char **cmdline, char *ret, unsigned int *i)
 		return (add_var(cmdline, ret, i));
 	if ((*cmdline)[*i] == '~')
 		return (add_home(cmdline, i));
-	// else if ((*cmdline)[*i] && (*cmdline)[*i] == '*')
-	// {
-	// 	(*i)++;
-	// 	if (!ret)
-	// 		ret = ft_strdup("");
-	// 	return (add_wildcard(cmdline, ret, i));
-	// }
 	else if ((*cmdline)[*i] && (*cmdline)[*i] == '\'')
 		return (add_quote(cmdline, ret, i));
 	else if ((*cmdline)[*i] && (*cmdline)[*i] == '"')
@@ -71,10 +64,9 @@ char	*split_cmd_sp(char **cmdline, unsigned int *i)
 	unsigned int	j;
 	char			*ret;
 
-	ret = NULL;
-	// ret = check_and_get_wildcard(NULL);
-	// if (ret)
-	// 	return (ret);
+	ret = token_buff(NULL);
+	if (ret)
+		return (ret);
 	while ((*cmdline)[*i] && (*cmdline)[*i] != ' ' && (*cmdline)[*i]
 		!= '<' && (*cmdline)[*i] != '>' && (*cmdline)[*i]
 		!= '|' && (*cmdline)[*i] != '&')

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/01 01:08:15 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/01 23:13:08 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void	write_heredoc(t_cmdli **cmdli, char *limit)
 			g_errno = WTERMSIG(status);
 		free(limit);
 		if (g_errno)
-		{
-			return (error_cmdli(cmdli, strerror(g_errno)));
-		}
+			return (free_cmdli(cmdli));
 	}
 }
