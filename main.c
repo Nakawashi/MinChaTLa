@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:33:57 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/02 02:38:04 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@
 // 	return (0);
 // }
 
-void	ft_norme(t_cmdli *cmdli, int status)
+void	execution(t_cmdli *cmdli, int status)
 {
 	t_cmdli	*cmdli_i;
 
@@ -120,14 +120,14 @@ void	ft_say_check(int ac, t_shell *shell)
 		shell->say = 0;
 }
 
-void	ft_norme2(t_shell *shell, t_cmdli *cmdli, int status)
+void	parsing(t_shell *shell, t_cmdli *cmdli, int status)
 {
 			if (shell->read[0])
 				add_history(shell->read);
 			cmdli = get_cmds(&shell->read);
 			//print_cmdli(cmdli);
 			if (cmdli)
-				ft_norme(cmdli, status);
+				execution(cmdli, status);
 			free(shell->read);
 }
 
@@ -150,7 +150,7 @@ int	main(int ac, char **av, char **env)
 	{
 		shell.read = readline(ft_prompt());
 		if (shell.read)
-			ft_norme2(&shell, cmdli, status);
+			parsing(&shell, cmdli, status);
 		else
 			ft_sig_exit();
 	}
