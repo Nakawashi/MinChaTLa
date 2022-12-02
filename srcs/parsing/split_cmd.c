@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:43:55 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 02:54:06 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 05:21:39 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ char	*split_cmd_sp(char **cmdline, unsigned int *i)
 	unsigned int	j;
 	char			*ret;
 
-	ret = token_buff(NULL);
-	if (ret)
-		return (ret);
+	ret = NULL;
 	while ((*cmdline)[*i] && (*cmdline)[*i] != ' ' && (*cmdline)[*i]
 		!= '<' && (*cmdline)[*i] != '>' && (*cmdline)[*i]
 		!= '|' && (*cmdline)[*i] != '&')
@@ -87,3 +85,32 @@ char	*split_cmd_sp(char **cmdline, unsigned int *i)
 	}
 	return (ret);
 }
+
+// char	*split_cmd_sp(char **cmdline, unsigned int *i)
+// {
+// 	unsigned int	j;
+// 	char			*ret;
+
+// 	ret = token_buff(NULL);
+// 	if (ret)
+// 		return (ret);
+// 	while ((*cmdline)[*i] && (*cmdline)[*i] != ' ' && (*cmdline)[*i]
+// 		!= '<' && (*cmdline)[*i] != '>' && (*cmdline)[*i]
+// 		!= '|' && (*cmdline)[*i] != '&')
+// 	{
+// 		j = 0;
+// 		while ((*cmdline)[*i + j] && (*cmdline)[*i + j] != '$'
+// 			&& (*cmdline)[*i + j] != ' ' && (*cmdline)[*i + j]
+// 			!= '<' && (*cmdline)[*i + j] != '>' && (*cmdline)[*i + j]
+// 			!= '|' && (*cmdline)[*i + j] != '&' && (*cmdline)[*i + j]
+// 			!= '\'' && (*cmdline)[*i + j] != '"' && !(!j && !ret
+// 			&& (*cmdline)[*i + j] == '~' && ((*cmdline)[*i + j + 1] == '/'
+// 			|| (*cmdline)[*i + j + 1] == ' ' || !(*cmdline)[*i + j + 1])))
+// 			++j;
+// 		if (j)
+// 			ret = split_cmd_sp_ret(cmdline, ret, i, j);
+// 		*i += j;
+// 		ret = split_cmd_sp_add_func(cmdline, ret, i);
+// 	}
+// 	return (ret);
+// }
