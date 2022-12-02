@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 01:25:00 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:05:11 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*add_var_free(char *str, char *new)
 	return (ret);
 }
 
-char *split_variable_buff(char *var)
+char	*split_variable_buff(char *var)
 {
 	char	*ret;
 
