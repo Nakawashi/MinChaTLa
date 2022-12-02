@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:46:57 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 15:02:24 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,37 @@ void	exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode)
 	}
 }
 
+int	andor_check(t_cmdli **cmdli)
+{
+	int	status;
+
+	status = 0;
+	if (!(*cmdli)->and_or)
+		return (0);
+	while (wait(&status) != -1)
+		if (WIFEXITED(status))
+			g_errno = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_errno = WTERMSIG(status);
+	if (status && WIFSIGNALED(status))
+		write(1, "\n", 1);
+	if ((g_errno && (*cmdli)->and_or == 1) || (!g_errno && (*cmdli)->and_or == 2))
+	{
+		while ((*cmdli))
+		{
+			if ((*cmdli)->pipe_in && (*cmdli)->pipe_in[0] == -1 && (*cmdli)->pipe_in[0] == -1)
+				close_pipe((*cmdli)->pipe_in);
+			(*cmdli) = (*cmdli)->next;
+		}
+		return (1);
+	}
+	return (0);
+}
+
 void	is_builtin(t_cmdli **cmdli, int mode)
 {
+	if (andor_check(cmdli))
+		return ;
 	if (!ft_strcmp((*cmdli)->cmd, "env"))
 		exec_builtin(ft_env, cmdli, mode);
 	else if (!ft_strcmp((*cmdli)->cmd_args[0], "export"))

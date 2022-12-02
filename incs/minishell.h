@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 04:21:59 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 15:04:53 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ void		ft_echo(t_cmdli **cmdli);
 
 // ft_export_utils.c
 void		print_export(t_cmdli **cmdli);
-//int			export_inset(char *s);
 void		free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i);
 int			check_non_authorized_names(char *str, int *i);
 int			ft_is_alphanum_(char c);
@@ -200,9 +199,10 @@ void		replace_node_env(t_variable *env, t_variable *new);
 
 // Binaries
 int			exec_cmd(t_cmdli *cmdli);
-int			no_cmd(t_cmdli *cmdli);
+int			no_cmd(t_cmdli **cmdli);
 
 // Execution
+int			andor_check(t_cmdli **cmdli);
 void		is_builtin(t_cmdli **cmdli, int mode);
 void		exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode);
 int			builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli);
@@ -219,7 +219,6 @@ int			ft_strchr_path(char *s, char *path, int c);
 char		*no_path(char *cmd, char *path);
 int			close_pipe(int	*pipe);
 int			close_and_free(t_cmdli *cmdli);
-//void		write_heredoc(t_cmdli *cmdli);
 void		write_heredoc(t_cmdli **cmdli, char *limit);
 int			set_file_out(t_cmdli *cmdli);
 int			set_file_in(t_cmdli *cmdli);
