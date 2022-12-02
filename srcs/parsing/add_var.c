@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 05:19:35 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 05:36:27 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ char	*add_var(char **cmdline, char *str, unsigned int *i)
 	++*i;
 	while (ft_is_alphanum_((*cmdline)[*i + j]))
 		j++;
+	if ((*cmdline)[*i] == '?' && !j)
+		j++;
 	if (j)
 	{
 		tmp = ft_substr((*cmdline), *i, j);
@@ -145,6 +147,8 @@ char	*add_var(char **cmdline, char *str, unsigned int *i)
 // 	++*i;
 // 	while (ft_is_alphanum_((*cmdline)[*i + j]))
 // 		j++;
+	//if ((*cmdline)[*i] == '?' && !j)
+	//	j++;
 // 	if (j)
 // 	{
 // 		tmp = ft_substr((*cmdline), *i, j);
