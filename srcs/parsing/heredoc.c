@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:06:27 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/02 02:21:48 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static int	double_free_hehe(char **s1, char **s2)
+int double_free(char **s1, char **s2)
 {
 	if (*s1)
 		free(*s1);
@@ -32,10 +32,7 @@ int	heredoc(t_cmdli **cmdli, char *limit)
 		{
 			if (write((*cmdli)->pipe_in[1], line, ft_strlen(line)) == -1
 				|| write((*cmdli)->pipe_in[1], "\n", 1) == -1)
-			{
-				if (double_free_hehe(&line, &limit))
-					return (1);
-			}
+				return (double_free(&line, &limit));
 			free(line);
 		}
 		else
@@ -55,7 +52,7 @@ void	write_heredoc(t_cmdli **cmdli, char *limit)
 	pid_t	pid;
 	int		status;
 
-	(*cmdli)->here_doc = ft_strdup("heredoc");
+	//(*cmdli)->here_doc = ft_strdup("heredoc");
 	if (!(*cmdli)->pipe_in)
 	{
 		(*cmdli)->pipe_in = malloc(2 * sizeof(int));
@@ -80,7 +77,6 @@ void	write_heredoc(t_cmdli **cmdli, char *limit)
 	}
 	else
 	{
-		//signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
 		sig_mode(1);
 		if (WIFEXITED(status))
