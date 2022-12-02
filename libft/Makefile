@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
+#    By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 14:02:05 by lgenevey          #+#    #+#              #
-#    Updated: 2022/11/24 05:25:18 by hrolle           ###   ########.fr        #
+#    Updated: 2022/12/02 15:17:03 by hermesrolle      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ GREEN	= \033[0;32m
 NONE	= \033[0m
 
 %.o: %.c
-	@printf "$(YELLOW)Compiling $(BOLD)%-43s \r" $<
+	@printf "$(YELLOW)Compiling $(BOLD)%-100s \r" $<
 	@$(CC) -c $< -o $@
 
 

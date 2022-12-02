@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
+#    By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/12/02 05:24:11 by hrolle           ###   ########.fr        #
+#    Updated: 2022/12/02 15:43:46 by hermesrolle      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,22 +33,28 @@ NAME	=	minishell
 
 #SRCS	=	$(wildcard srcs/*/*.c *.c)
 
-SRCS	=	main.c                                   srcs/execution/no_cmd.c                  srcs/init/ft_prompt_utils.c              srcs/parsing/create_cmdli.c		\
-			srcs/builtins/builtins_utils.c           srcs/execution/set_redirection.c         srcs/init/init_env.c                     srcs/parsing/error_cmdli.c		\
-			srcs/builtins/ft_cd.c                    srcs/images/image_10_12.c                srcs/init/init_export.c                  srcs/parsing/free_cmdli.c		\
-			srcs/builtins/ft_echo.c                  srcs/images/image_13_15.c                srcs/init/init_shell.c                   srcs/parsing/free_tab.c			\
-			srcs/builtins/ft_env.c                   srcs/images/image_16_18.c                srcs/init/list_utils.c                   srcs/parsing/get_cmds.c			\
-			srcs/builtins/ft_exit.c                  srcs/images/image_19_20.c                srcs/parsing/add_andor.c                 srcs/parsing/heredoc.c			\
-			srcs/builtins/ft_export.c                srcs/images/image_1_2.c                  srcs/parsing/add_arg.c                   srcs/parsing/print_cmdli.c		\
-			srcs/builtins/ft_export_utils.c          srcs/images/image_3_4.c                  srcs/parsing/add_cmd.c                   srcs/parsing/print_tab.c			\
-			srcs/builtins/ft_pwd.c                   srcs/images/image_5_6.c                  srcs/parsing/add_dquote.c                srcs/parsing/split_cmd.c			\
-			srcs/builtins/ft_unset.c                 srcs/images/image_7_9.c                  srcs/parsing/add_file.c                  srcs/parsing/token_buff.c		\
-			srcs/execution/builtin_set_file.c        srcs/init/ft_get_env.c                   srcs/parsing/add_pipe.c                  srcs/parsing/type_and_set.c		\
-			srcs/execution/exec_cmd.c                srcs/init/ft_get_export.c                srcs/parsing/add_quote.c                 srcs/secure/error.c				\
-			srcs/execution/get_absolute_path.c       srcs/init/ft_get_shell.c                 srcs/parsing/add_var.c                   srcs/secure/free_tab_null.c		\
-			srcs/execution/get_absolute_path_utils.c srcs/init/ft_get_str_env.c               srcs/parsing/add_wildcard.c              srcs/secure/ft_say.c				\
-			srcs/execution/get_path_utils.c          srcs/init/ft_get_var.c                   srcs/parsing/cmdli_first.c               srcs/secure/print_minishell.c	\
-			srcs/execution/is_builtin.c              srcs/init/ft_prompt.c                    srcs/parsing/cmdli_utils.c               srcs/signals/sig_handler.c
+SRCS	=	main.c                                          srcs/images/image_19_20.c                       srcs/parsing/add_quote.c		\
+			srcs/builtins/builtins_utils.c                  srcs/images/image_1_2.c                         srcs/parsing/add_var.c			\
+			srcs/builtins/ft_cd.c                           srcs/images/image_3_4.c                         srcs/parsing/add_wildcard.c		\
+			srcs/builtins/ft_echo.c                         srcs/images/image_5_6.c                         srcs/parsing/cmdli_first.c		\
+			srcs/builtins/ft_env.c                          srcs/images/image_7_9.c                         srcs/parsing/cmdli_utils.c		\
+			srcs/builtins/ft_exit.c                         srcs/init/ft_get_env.c                          srcs/parsing/create_cmdli.c		\
+			srcs/builtins/ft_export.c                       srcs/init/ft_get_export.c                       srcs/parsing/error_cmdli.c		\
+			srcs/builtins/ft_export_utils.c                 srcs/init/ft_get_shell.c                        srcs/parsing/free_cmdli.c		\
+			srcs/builtins/ft_pwd.c                          srcs/init/ft_get_str_env.c                      srcs/parsing/free_tab.c			\
+			srcs/builtins/ft_unset.c                        srcs/init/ft_get_var.c                          srcs/parsing/get_cmds.c			\
+			srcs/execution/builtin_set_file.c               srcs/init/ft_prompt.c                           srcs/parsing/heredoc.c			\
+			srcs/execution/check_andor.c                    srcs/init/ft_prompt_utils.c                     srcs/parsing/print_cmdli.c		\
+			srcs/execution/exec_cmd.c                       srcs/init/init_env.c                            srcs/parsing/print_tab.c		\
+			srcs/execution/get_absolute_path.c              srcs/init/init_export.c                         srcs/parsing/split_cmd.c		\
+			srcs/execution/get_absolute_path_utils.c        srcs/init/init_shell.c                          srcs/parsing/token_buff.c		\
+			srcs/execution/get_path_utils.c                 srcs/init/list_utils.c                          srcs/parsing/type_and_set.c		\
+			srcs/execution/is_builtin.c                     srcs/parsing/add_andor.c                        srcs/secure/error.c				\
+			srcs/execution/no_cmd.c                         srcs/parsing/add_arg.c                          srcs/secure/free_tab_null.c		\
+			srcs/execution/set_redirection.c                srcs/parsing/add_cmd.c                          srcs/secure/ft_say.c			\
+			srcs/images/image_10_12.c                       srcs/parsing/add_dquote.c                       srcs/secure/print_minishell.c	\
+			srcs/images/image_13_15.c                       srcs/parsing/add_file.c                         srcs/signals/sig_handler.c		\
+			srcs/images/image_16_18.c                       srcs/parsing/add_pipe.c
 
 INC_FLAGS := -Ilibs/libft/incs -Iincs
 LIBS := -Llibft -lft -lreadline
@@ -76,7 +82,7 @@ NONE	= \033[0m
 all:	$(NAME)
 
 %.o: %.c
-	@printf "Compiling %-43s \r" $<
+	@printf "Compiling %-100s \r" $<
 	@$(CC) -c $< -o $@
 
 $(NAME)	: $(OBJS)
