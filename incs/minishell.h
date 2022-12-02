@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 01:58:20 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/02 02:28:12 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ typedef struct S_cmdli
 	char			**cmd_args;
 	int				*pipe_in;
 	int				*pipe_out;
-	int				pipe;
-	char			*here_doc;
+	int				here_doc;
 	int				fd_in;
 	int				fd_out;
 	char			**file_in;

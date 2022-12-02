@@ -6,13 +6,13 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:21:48 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:52:26 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int double_free(char **s1, char **s2)
+int	double_free(char **s1, char **s2)
 {
 	if (*s1)
 		free(*s1);
@@ -47,12 +47,39 @@ int	heredoc(t_cmdli **cmdli, char *limit)
 	exit(0);
 }
 
+void	heredoc_parent(t_cmdli **cmdli, pid_t pid, char *limit)
+{
+	int	status;
+
+	status = 0;
+	waitpid(pid, &status, 0);
+	sig_mode(1);
+	if (WIFEXITED(status))
+		g_errno = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_errno = WTERMSIG(status);
+	free(limit);
+	if (g_errno)
+		return (free_cmdli(cmdli));
+}
+
+void	heredoc_child(t_cmdli **cmdli, pid_t pid, char *limit)
+{
+	sig_mode(3);
+	close((*cmdli)->pipe_in[0]);
+	if (heredoc(cmdli, limit))
+	{
+		close((*cmdli)->pipe_in[1]);
+		exit_error(errno, NULL);
+	}	
+}
+
 void	write_heredoc(t_cmdli **cmdli, char *limit)
 {
 	pid_t	pid;
 	int		status;
 
-	//(*cmdli)->here_doc = ft_strdup("heredoc");
+	(*cmdli)->here_doc = 1;
 	if (!(*cmdli)->pipe_in)
 	{
 		(*cmdli)->pipe_in = malloc(2 * sizeof(int));
@@ -66,25 +93,7 @@ void	write_heredoc(t_cmdli **cmdli, char *limit)
 	if (pid == -1)
 		return (error_cmdli(cmdli, strerror(errno)));
 	else if (!pid)
-	{
-		sig_mode(3);
-		close((*cmdli)->pipe_in[0]);
-		if (heredoc(cmdli, limit))
-		{
-			close((*cmdli)->pipe_in[1]);
-			exit_error(errno, NULL);
-		}
-	}
+		heredoc_child(cmdli, pid, limit);
 	else
-	{
-		waitpid(pid, &status, 0);
-		sig_mode(1);
-		if (WIFEXITED(status))
-			g_errno = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			g_errno = WTERMSIG(status);
-		free(limit);
-		if (g_errno)
-			return (free_cmdli(cmdli));
-	}
+		heredoc_parent(cmdli, pid, limit);
 }

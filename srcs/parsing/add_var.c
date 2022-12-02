@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 02:22:15 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:31:29 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_split_var_line(char *s, unsigned int *i)
 
 	if (!s)
 		return (NULL);
-	ret = malloc((sp_strlen(*s) + 1) * sizeof(char));
+	ret = malloc((sp_strlen(s) + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
 	j = 0;

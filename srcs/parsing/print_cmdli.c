@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_cmdli.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:53:43 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 02:09:10 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/02 02:53:44 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_content(t_cmdli *cmds_list)
 		printf("pipe_out = no\n");
 	print_cmdli_tab(cmds_list->file_in, "file_in");
 	print_cmdli_files(cmds_list->file_out, "file_out");
-	printf("here_doc = %s\n", cmds_list->here_doc);
+	printf("here_doc = %d\n", cmds_list->here_doc);
 	printf("and_or = %d\n", cmds_list->and_or);
 	printf("next = %p\n", cmds_list->next);
 	printf("previous = %p\n", cmds_list->previous);
@@ -70,7 +70,6 @@ void	print_cmdli(t_cmdli *cmds_list)
 		printf("cmds_list = NULL\n");
 		return ;
 	}
-	//print_content(cmds_list);
 	printf("\nnode %u :\n\n", ++i);
 	print_content(cmds_list);
 	while (cmds_list->next)
