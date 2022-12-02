@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/01 23:13:08 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:06:27 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static int double_free_hehe(char **s1, char **s2)
+static int	double_free_hehe(char **s1, char **s2)
 {
 	if (*s1)
 		free(*s1);
@@ -24,7 +24,7 @@ static int double_free_hehe(char **s1, char **s2)
 int	heredoc(t_cmdli **cmdli, char *limit)
 {
 	char	*line;
- 
+
 	while (1)
 	{
 		line = readline("heredoc> ");
