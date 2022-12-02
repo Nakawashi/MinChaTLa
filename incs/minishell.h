@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:28:12 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 04:21:59 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,10 +188,11 @@ void		ft_cd(t_cmdli **cmdli);
 void		ft_echo(t_cmdli **cmdli);
 
 // ft_export_utils.c
-int			print_export(t_cmdli **cmdli);
-int			export_inset(char *s);
+void		print_export(t_cmdli **cmdli);
+//int			export_inset(char *s);
 void		free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i);
 int			check_non_authorized_names(char *str, int *i);
+int			ft_is_alphanum_(char c);
 
 // Builtins utils
 void		replace_node(t_variable **export, t_variable *new);

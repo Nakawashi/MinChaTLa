@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 02:31:29 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 04:44:53 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,21 @@ char	*get_split_var_line(char *s, unsigned int *i)
 	return (ret);
 }
 
-char *split_var_buff(char *var)
+char	*split_var_buff(char **cmdline, char *var, unsigned int *i)
 {
 	char			*ret;
-	unsigned int	i;
+	unsigned int	j;
 
 	if (!var || !*var || (*var == '$' && !*(var + 1)))
 		return (var);
 	ret = NULL;
-	i = 0;
+	j = 0;
 	if (*var != ' ')
 		ret = get_split_var_line(var, &i);
-	if (var[i])
+	if (var[j])
 	{
-		
+		while (var[j] && var[j] == ' ')
+			j++;
 	}
 	return (ret);
 }
@@ -117,10 +118,7 @@ char	*add_var(char **cmdline, char *str, unsigned int *i)
 
 	j = 0;
 	++*i;
-	while ((*cmdline)[*i + j] && (*cmdline)[*i + j] != '$' && (*cmdline)[*i + j]
-		!= ' ' && (*cmdline)[*i + j] != '<' && (*cmdline)[*i + j]
-		!= '>' && (*cmdline)[*i + j] != '|' && (*cmdline)[*i + j]
-		!= '&' && (*cmdline)[*i + j] != '\'' && (*cmdline)[*i + j] != '"')
+	while (ft_is_alphanum_((*cmdline)[*i + j]))
 		j++;
 	if (j)
 	{
@@ -145,10 +143,7 @@ char	*add_var_parse(char **cmdline, char *str, unsigned int *i)
 
 	j = 0;
 	++*i;
-	while ((*cmdline)[*i + j] && (*cmdline)[*i + j] != '$' && (*cmdline)[*i + j]
-		!= ' ' && (*cmdline)[*i + j] != '<' && (*cmdline)[*i + j]
-		!= '>' && (*cmdline)[*i + j] != '|' && (*cmdline)[*i + j]
-		!= '&' && (*cmdline)[*i + j] != '\'' && (*cmdline)[*i + j] != '"')
+	while (ft_is_alphanum_((*cmdline)[*i + j]))
 		j++;
 	if (j)
 	{

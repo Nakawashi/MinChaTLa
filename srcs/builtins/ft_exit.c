@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:25:57 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 17:18:27 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 03:38:03 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ void	ft_sig_exit(void)
 	if (ft_get_shell(NULL)->read)
 		free(ft_get_shell(NULL)->read);
 	clear_history();
-	exit(0);
+	exit(g_errno);
 }

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/29 20:00:50 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 04:24:19 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,28 @@
 	returns 1 if c is not a valid identifier or doesnt content any =
 	writes only once the message, not for every bad char
 */
+int	ft_is_alphanum_(char c)
+{
+	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z') || c == '_')
+		return (1);
+	return (0);
+}
+
 int	check_non_authorized_names(char *str, int *i)
 {
-	if (str[0] == '_' || str[0] == '#')
+	unsigned int	j;
+
+	if (str[0] == '#')
 	{
 		++(*i);
 		return (1);
 	}
-	if (!ft_isalpha(str[0]))
+	j = 0;
+	if (!(str[0] <= '9' && str[0] >= '0'))
+		while (str[j] && ft_is_alphanum_(str[j]))
+			++j;
+	if (str[j])
 	{
 		ft_printfd(2, "export: `%s': not a valid identifier\n", str);
 		g_errno = 1;
@@ -55,13 +69,13 @@ void	free_content_node_and_print(t_cmdli *cmdli, t_variable *new, int i)
 	no  '='	: value is null
 	yes '='	: value is empty string
 */
-int	print_export(t_cmdli **cmdli)
+void	print_export(t_cmdli **cmdli)
 {
 	t_variable	*export;
 
 	export = ft_get_export();
 	if (!export)
-		return (0);
+		return ;
 	while (export)
 	{
 		if (!export->value)
@@ -71,5 +85,5 @@ int	print_export(t_cmdli **cmdli)
 				export->name, export->value);
 		export = export->next;
 	}
-	return (1);
+	return ;
 }

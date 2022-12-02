@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:38:04 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/02 02:58:00 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,12 @@ void	ft_say_check(int ac, t_shell *shell)
 
 void	parsing(t_shell *shell, t_cmdli *cmdli, int status)
 {
-			if (shell->read[0])
-				add_history(shell->read);
-			cmdli = get_cmds(&shell->read);
-			//print_cmdli(cmdli);
-			if (cmdli)
-				execution(cmdli, status);
-			free(shell->read);
+	if (shell->read[0])
+		add_history(shell->read);
+	cmdli = get_cmds(&shell->read);
+	if (cmdli)
+		execution(cmdli, status);
+	free(shell->read);
 }
 
 int	main(int ac, char **av, char **env)
@@ -144,7 +143,7 @@ int	main(int ac, char **av, char **env)
 	print_minishell();
 	(void)av;
 	term_handler(&shell);
-	signal(SIGQUIT, SIG_IGN); // NE PAS SUPPRIMER
+	signal(SIGQUIT, SIG_IGN);
 	sig_mode(1);
 	while (true)
 	{
