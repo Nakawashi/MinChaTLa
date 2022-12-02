@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 01:25:00 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:02:54 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,49 @@ char	*add_var_free(char *str, char *new)
 	return (ret);
 }
 
-char *split_variable_buff(char *var)
+unsigned int	sp_strlen(char *s)
 {
-	char	*ret;
+	unsigned int	i;
 
-	ret = NULL;
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] && s[i] != ' ')
+		++i;
+	return (i);
+}
+
+char	*get_split_var_line(char *s, unsigned int *i)
+{
+	unsigned int	j;
+	char			*ret;
+
+	if (!s)
+		return (NULL);
+	ret = malloc((sp_strlen(*s) + 1) * sizeof(char));
+	if (!ret)
+		return (NULL);
+	j = 0;
+	while (s[*i] && s[*i] != ' ')
+		ret[j++] = s[*i++];
+	ret[j] = 0;
+	return (ret);
+}
+
+char *split_var_buff(char *var)
+{
+	char			*ret;
+	unsigned int	i;
+
 	if (!var || !*var || (*var == '$' && !*(var + 1)))
 		return (var);
+	ret = NULL;
+	i = 0;
 	if (*var != ' ')
+		ret = get_split_var_line(var, &i);
+	if (var[i])
 	{
-		ret = ft_strdup("");
+		
 	}
 	return (ret);
 }
@@ -129,5 +162,5 @@ char	*add_var_parse(char **cmdline, char *str, unsigned int *i)
 	else
 		new = ft_strdup("");
 	*i += j;
-	return (add_var_free(str, split_variable_buff(new)));
+	return (add_var_free(str, split_var_buff(new)));
 }
