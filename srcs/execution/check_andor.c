@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   check_andor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 15:35:59 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/12/02 15:59:00 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/12/02 17:14:11 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int	andor_while_check(t_cmdli **cmdli)
+int	andor_while_check(t_cmdli **cmdli, int new_errno)
 {
-	while ((*cmdli) && (g_errno && (*cmdli)->and_or == 1)
-		|| (!g_errno && (*cmdli)->and_or == 2))
+	while ((*cmdli) && (new_errno && (*cmdli)->and_or == 1)
+		|| (!new_errno && (*cmdli)->and_or == 2))
 	{
 		if ((*cmdli)->pipe_in && (*cmdli)->pipe_in[0] == -1
 			&& (*cmdli)->pipe_in[0] == -1)
@@ -41,8 +41,10 @@ int	andor_while_check(t_cmdli **cmdli)
 int	andor_check(t_cmdli **cmdli)
 {
 	int	status;
+	int	tmp_errno;
 
 	status = 0;
+	tmp_errno = g_errno;
 	if (!(*cmdli)->and_or)
 		return (0);
 	sig_mode(0);
@@ -54,7 +56,9 @@ int	andor_check(t_cmdli **cmdli)
 	if (status && WIFSIGNALED(status))
 		write(1, "\n", 1);
 	sig_mode(1);
-	if (andor_while_check(cmdli))
+	if (g_errno)
+		tmp_errno = g_errno;
+	if (andor_while_check(cmdli, tmp_errno))
 		return (1);
 	return (0);
 }

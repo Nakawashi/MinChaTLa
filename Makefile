@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+         #
+#    By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/12/02 15:43:46 by hermesrolle      ###   ########.fr        #
+#    Updated: 2022/12/02 17:15:10 by hrolle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ all:	$(NAME)
 	@$(CC) -c $< -o $@
 
 $(NAME)	: $(OBJS)
-	@echo "$(BLUE)Making libft and bonuses... $(NONE)"
+	@echo "$(BLUE)Making libft and bonuses...                      $(NONE)"
 	@$(MAKE) -C printfd
 	@$(MAKE) -C libft
 	@$(MAKE) -C libft bonus
