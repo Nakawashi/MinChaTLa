@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:39:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/12 15:51:27 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:31:13 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	free_content(t_cmdli *cmdli)
 		close(cmdli->pipe_in[1]);
 		free(cmdli->pipe_in);
 	}
-	if (cmdli->here_doc)
-		free(cmdli->here_doc);
 	if (cmdli->file_in)
 		free_tab(cmdli->file_in);
 	if (cmdli->file_out)

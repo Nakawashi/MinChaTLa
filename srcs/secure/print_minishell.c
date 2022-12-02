@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 22:34:44 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/24 03:41:58 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 05:14:18 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,8 @@ void	back_to_the_future(void)
 // 	image_20(0);
 // }
 
-void	print_minishell(void)
+void	first_images(void)
 {
-	ft_printfd(1, "\n\n");
-	ft_say("Welcome to the best minishell");
 	image_1(1);
 	ft_sleep(600);
 	image_2(1);
@@ -110,6 +108,13 @@ void	print_minishell(void)
 	ft_sleep(500);
 	image_8(1);
 	ft_sleep(150);
+}
+
+void	print_minishell(void)
+{
+	ft_printfd(1, "\n\n");
+	ft_say("Welcome to the best minishell");
+	first_images();
 	image_10(1);
 	ft_sleep(200);
 	image_7(1);

@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 19:02:25 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 04:06:25 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_export(t_cmdli **cmdli)
 	g_errno = 0;
 	shell = ft_get_shell(NULL);
 	new = NULL;
-	if ((*cmdli)->cmd_args[1])
+	if ((*cmdli)->cmd_args[1] && (*cmdli)->cmd_args[1][0] != '#')
 	{
 		i = 1;
 		while ((*cmdli)->cmd_args[i])
