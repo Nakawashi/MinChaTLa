@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 07:00:06 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 04:47:05 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 04:48:15 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,5 @@ char	*add_var_parse(char **cmdline, char *str, unsigned int *i)
 	else
 		new = ft_strdup("");
 	*i += j;
-	return (add_var_free(str, split_var_buff(new)));
+	return (add_var_free(str, split_var_buff(cmdline, new, i)));
 }
