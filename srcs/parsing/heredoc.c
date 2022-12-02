@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:21:00 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:21:48 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int double_free(char **s1, char **s2)
 int	heredoc(t_cmdli **cmdli, char *limit)
 {
 	char	*line;
- 
+
 	while (1)
 	{
 		line = readline("heredoc> ");

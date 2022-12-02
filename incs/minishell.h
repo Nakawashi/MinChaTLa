@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/01 23:56:52 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 01:58:20 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,9 +207,12 @@ void		is_builtin(t_cmdli **cmdli, int mode);
 void		exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode);
 int			builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli);
 
-// int			is_builtin(t_cmdli *cmdli);
-// int			exec_builtin(t_cmdli **cmdli);
 void		is_absolute_path(char **args, t_list *env);
+char		*no_path(char *cmd, char *path);
+char		*path_join(char *path, char *cmd, unsigned int path_len,
+				unsigned int cmd_len);
+char		**free_path(char **tab, char *path);
+
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd, char *path);
 int			ft_strchr_path(char *s, char *path, int c);

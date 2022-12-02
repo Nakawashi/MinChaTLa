@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/01 02:27:27 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 01:49:36 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@ void	update_node(char *name, char *value)
 	replace_node(&shell->export, node);
 	if (node->value)
 		replace_node_env(shell->env, node);
+}
+
+static void	move_new_dir(char *new_path, char *buff)
+{
+	if (new_path)
+		free(new_path);
+	new_path = getcwd(buff, PATH_MAX);
+	update_node("PWD", new_path);
+}
+
+static void	free_and_print_err(char *new_path, char *arg)
+{
+	if (new_path)
+		free(new_path);
+	ft_printfd(2, "cd: %s: %s\n", arg, strerror(errno));
+	g_errno = 1;
 }
 
 /*
@@ -64,18 +80,7 @@ void	ft_cd(t_cmdli **cmdli)
 	else if ((*cmdli)->cmd_args[1])
 		new_path = ft_strdup((*cmdli)->cmd_args[1]);
 	if (!chdir(new_path))
-	{
-		if (new_path)
-			free(new_path);
-		new_path = getcwd(buff, PATH_MAX);
-		update_node("PWD", new_path);
-	}
+		move_new_dir(new_path, buff);
 	else
-	{
-		if (new_path)
-			free(new_path);
-		ft_printfd((*cmdli)->fd_out, "cd: %s: %s\n", strerror(errno),
-			(*cmdli)->cmd_args[1]);
-		g_errno = 1;
-	}
+		free_and_print_err(new_path, (*cmdli)->cmd_args[1]);
 }

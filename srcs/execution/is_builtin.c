@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/01 01:27:50 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 02:01:07 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	is_builtin(t_cmdli **cmdli, int mode)
 	else if (!ft_strcmp((*cmdli)->cmd, "cd"))
 		exec_builtin(ft_cd, cmdli, mode);
 	else if (!ft_strcmp((*cmdli)->cmd, "exit")
-			|| !ft_strcmp((*cmdli)->cmd, "bye"))
+		|| !ft_strcmp((*cmdli)->cmd, "bye"))
 		exec_builtin(ft_exit, cmdli, mode);
 	else
 	{
