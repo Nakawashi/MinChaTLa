@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:25:54 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:38:04 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/02 03:29:12 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	main(int ac, char **av, char **env)
 	ft_get_shell(&shell);
 	init_shell(&shell, env);
 	ft_say_check(ac, &shell);
-	print_minishell();
+	//print_minishell();
 	(void)av;
 	term_handler(&shell);
 	signal(SIGQUIT, SIG_IGN); // NE PAS SUPPRIMER
