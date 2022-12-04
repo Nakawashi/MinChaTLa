@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 04:24:19 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/04 18:53:53 by hermesrolle      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_non_authorized_names(char *str, int *i)
 		return (1);
 	}
 	j = 0;
-	if (!(str[0] <= '9' && str[0] >= '0'))
+	if (!(str[0] <= '9' && str[0] >= '0') && str[0] != '=')
 		while (str[j] && ft_is_alphanum_(str[j]))
 			++j;
 	if (str[j])
