@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 03:10:11 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 03:27:09 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 19:27:43 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ void	set_redirection(t_cmdli *cmdli)
 	if (cmdli->pipe_out)
 		close(cmdli->pipe_out[0]);
 	if (cmdli->file_out)
-		set_file_out(cmdli);
+		if (set_file_out(cmdli))
+			exit(g_errno);
 	if (cmdli->file_in)
 		if (set_file_in(cmdli))
 			exit(g_errno);

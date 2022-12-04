@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 15:35:59 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/12/02 17:14:11 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 18:29:12 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	andor_check(t_cmdli **cmdli)
 		if (WIFEXITED(status))
 			g_errno = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_errno = WTERMSIG(status);
+		g_errno = WTERMSIG(status) + 128;
 	if (status && WIFSIGNALED(status))
 		write(1, "\n", 1);
 	sig_mode(1);

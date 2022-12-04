@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tgoel <tgoel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 02:52:26 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 18:31:08 by tgoel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	heredoc_parent(t_cmdli **cmdli, pid_t pid, char *limit)
 	if (WIFEXITED(status))
 		g_errno = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_errno = WTERMSIG(status);
+		g_errno = write(1, "\n", 1);
 	free(limit);
 	if (g_errno)
 		return (free_cmdli(cmdli));

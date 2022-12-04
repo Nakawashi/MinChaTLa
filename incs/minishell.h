@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: nakawashi <nakawashi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 15:04:53 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/12/04 19:30:18 by nakawashi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,11 @@ int			files_len(t_file **files);
 char		*split_cmd(char **cmdline, unsigned int *i, char c);
 char		**ft_strsjoin(char *s, char **ss);
 t_file		**file_join(char *file, t_file **files, t_type type);
-char		*token_buff(char *new_token);
 char		*add_var(char **cmdline, char *str, unsigned int *i);
 char		*add_home(char **cmdline, unsigned int *i);
 char		*add_quote(char **cmdline, char *str, unsigned int *i);
 char		*add_dquote(char **cmdline, char *str, unsigned int *i);
 char		*split_cmd_sp(char **cmdline, unsigned int *i);
-void		print_tab(char **s);
 t_cmdli		*create_cmdli(void);
 void		add_pipe(t_cmdli **cmds_list, t_type *type);
 void		add_andor(t_cmdli **cmds_list, t_type *type, int and_or);
@@ -136,7 +134,6 @@ void		add_file(t_cmdli **cmds_list, char *file, t_type *type);
 void		type_and_set(char *s, t_cmdli **cmds_list,
 				t_type *type, int interpret);
 t_cmdli		*get_cmds(char **cmdline);
-void		print_cmdli(t_cmdli *cmds_list);
 
 // List utils
 void		free_nodes(t_variable **list);
@@ -229,7 +226,6 @@ void		rl_replace_line(const char *text, int clear_undo);
 t_token		*get_token(t_shell *shell);
 
 // Heredoc
-//char		*heredoc(char *limit);
 int			heredoc(t_cmdli **cmdli, char *limit);
 
 //Secure

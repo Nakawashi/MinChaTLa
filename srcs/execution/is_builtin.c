@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:15 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 15:35:48 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/12/02 20:02:02 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ int	close_and_free_builtin(t_cmdli *cmdli)
 
 int	builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli)
 {
-	if ((*cmdli)->pipe_out && (*cmdli)->pipe_out[0] == -1
-		&& (*cmdli)->pipe_out[1] == -1)
-		if (pipe((*cmdli)->pipe_out) == -1)
-			return (return_error(errno, NULL));
 	(*cmdli)->pid = fork();
 	if ((*cmdli)->pid == -1)
 		return (return_error(errno, NULL));
@@ -51,6 +47,10 @@ int	builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli)
 
 void	exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode)
 {
+	if ((*cmdli)->pipe_out && (*cmdli)->pipe_out[0] == -1
+		&& (*cmdli)->pipe_out[1] == -1)
+		if (pipe((*cmdli)->pipe_out) == -1)
+			return (void_error(errno, NULL));
 	if (mode)
 	{
 		sig_mode(3);

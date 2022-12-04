@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmdli.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nakawashi <nakawashi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:48:33 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/29 14:40:10 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 00:04:21 by nakawashi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,3 @@ t_cmdli	*create_cmdli(void)
 	ret->fd_out = -1;
 	return (ret);
 }
-
-	// ret->cmd = NULL;
-	// ret->cmd_args = NULL;
-	// ret->pipe_in = NULL;
-	// ret->pipe_out = NULL;
-	// ret->file_in = NULL;
-	// ret->file_out = NULL;
-	// ret->file_type = EMPTY;
-	// ret->here_doc = NULL;
-	// ret->and_or = 0;
-	// ret->previous = NULL;
-	// ret->next = NULL;

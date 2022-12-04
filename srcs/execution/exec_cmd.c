@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:15:50 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 02:46:30 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 19:57:25 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int	close_and_free(t_cmdli *cmdli)
 
 int	exec_cmd(t_cmdli *cmdli)
 {
-	cmdli->cmd = get_absolute_path(cmdli->cmd, ft_get_var("PATH"));
-	if (!cmdli->cmd)
-		return (1);
 	if (cmdli->pipe_out && cmdli->pipe_out[0] == -1
 		&& cmdli->pipe_out[1] == -1)
 		if (pipe(cmdli->pipe_out) == -1)
 			return (return_error(errno, NULL));
+	cmdli->cmd = get_absolute_path(cmdli->cmd, ft_get_var("PATH"));
+	if (!cmdli->cmd)
+		return (1);
 	cmdli->pid = fork();
 	if (cmdli->pid == -1)
 		return (return_error(errno, NULL));
