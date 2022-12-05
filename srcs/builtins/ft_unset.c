@@ -3,34 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/11/29 17:53:56 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/04 12:23:49 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static void	skip_node(t_variable *node, char *arg, int is_env)
+void	free_node(t_variable *tmp, int is_env)
+{
+	if (!is_env)
+	{
+		free(tmp->name);
+		free(tmp->value);
+	}
+	free(tmp);
+}
+
+static void	skip_node(t_variable **node, char *arg, int is_env)
 {
 	t_variable	*tmp;
+	t_variable	*current_node;
 
-	while (node->next)
+	current_node = *node;
+	if (!ft_strcmp(arg, current_node->name))
 	{
-		if (ft_strcmp(arg, node->next->name) == 0)
+		tmp = current_node;
+		(*node) = current_node->next;
+		free_node(tmp, is_env);
+		return ;
+	}
+	while (current_node->next)
+	{
+		if (!ft_strcmp(arg, current_node->next->name))
 		{
-			tmp = node->next;
-			node->next = node->next->next;
-			if (!is_env)
-			{
-				free(tmp->name);
-				free(tmp->value);
-			}
-			free(tmp);
+			tmp = current_node->next;
+			current_node->next = current_node->next->next;
+			free_node(tmp, is_env);
 			return ;
 		}
-		node = node->next;
+		current_node = current_node->next;
 	}
 }
 
@@ -43,20 +57,18 @@ void	ft_unset(t_cmdli **cmdli)
 {
 	int			i;
 	char		**args;
-	t_variable	*env;
-	t_variable	*export;
+	t_shell		*shell;
 
 	g_errno = 0;
 	args = (*cmdli)->cmd_args;
 	if (!args || !args[0])
 		return ;
 	i = 1;
-	while (args[i])
+	shell = ft_get_shell(NULL);
+	while (args[i] && shell->export && shell->env)
 	{
-		env = ft_get_env();
-		export = ft_get_export();
-		skip_node(env, args[i], 1);
-		skip_node(export, args[i], 0);
+		skip_node(&shell->env, args[i], 1);
+		skip_node(&shell->export, args[i], 0);
 		++i;
 	}
 }

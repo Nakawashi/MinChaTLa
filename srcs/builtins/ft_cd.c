@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 01:49:36 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/04 12:21:25 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void	ft_cd(t_cmdli **cmdli)
 	char	buff[PATH_MAX];
 
 	g_errno = 0;
-	actual_path = getcwd(buff, PATH_MAX);
-	update_node("OLDPWD", actual_path);
 	new_path = NULL;
 	if (!(*cmdli)->cmd_args[1])
 	{
@@ -74,11 +72,25 @@ void	ft_cd(t_cmdli **cmdli)
 		{
 			ft_printfd((*cmdli)->fd_out, "cd: HOME not set\n");
 			free(new_path);
-			return ;
+			new_path = NULL;
+		}
+	}
+	else if ((*cmdli)->cmd_args[1][0] == '-' && !(*cmdli)->cmd_args[1][1])
+	{
+		new_path = ft_get_var("OLDPWD");
+		if (!(*new_path))
+		{
+			ft_printfd((*cmdli)->fd_out, "cd: OLDPWD not set\n");
+			free(new_path);
+			new_path = NULL;
 		}
 	}
 	else if ((*cmdli)->cmd_args[1])
 		new_path = ft_strdup((*cmdli)->cmd_args[1]);
+	actual_path = getcwd(buff, PATH_MAX);
+	update_node("OLDPWD", actual_path);
+	if (!new_path)
+		return ;
 	if (!chdir(new_path))
 		move_new_dir(new_path, buff);
 	else
