@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/04 12:21:25 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:25:44 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ static void	free_and_print_err(char *new_path, char *arg)
 	g_errno = 1;
 }
 
+void	get_new_path(char *name, char **new_path)
+{
+	*new_path = ft_get_var(name);
+	if (!(**new_path))
+	{
+		ft_printfd(2, "cd: %s not set\n", name);
+		free(*new_path);
+		*new_path = NULL;
+	}
+}
+
 /*
 	getcwd : Get the current working directory
 	chdir : change current dir, returns 0 if success
@@ -66,25 +77,9 @@ void	ft_cd(t_cmdli **cmdli)
 	g_errno = 0;
 	new_path = NULL;
 	if (!(*cmdli)->cmd_args[1])
-	{
-		new_path = ft_get_var("HOME");
-		if (!(*new_path))
-		{
-			ft_printfd((*cmdli)->fd_out, "cd: HOME not set\n");
-			free(new_path);
-			new_path = NULL;
-		}
-	}
+		get_new_path("HOME", &new_path);
 	else if ((*cmdli)->cmd_args[1][0] == '-' && !(*cmdli)->cmd_args[1][1])
-	{
-		new_path = ft_get_var("OLDPWD");
-		if (!(*new_path))
-		{
-			ft_printfd((*cmdli)->fd_out, "cd: OLDPWD not set\n");
-			free(new_path);
-			new_path = NULL;
-		}
-	}
+		get_new_path("OLDPWD", &new_path);
 	else if ((*cmdli)->cmd_args[1])
 		new_path = ft_strdup((*cmdli)->cmd_args[1]);
 	actual_path = getcwd(buff, PATH_MAX);

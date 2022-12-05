@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/05 10:34:41 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:27:11 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ int	check_non_authorized_names(char *str, int *i)
 {
 	unsigned int	j;
 
-	// if (str[0] == '#')
-	// {
-	// 	++(*i);
-	// 	return (1);
-	// }
 	j = 0;
 	if (!(str[0] <= '9' && str[0] >= '0'))
 		while (str[j] && ft_is_alphanum_(str[j]))

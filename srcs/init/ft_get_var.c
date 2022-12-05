@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 04:32:21 by hrolle            #+#    #+#             */
-/*   Updated: 2022/11/29 15:55:43 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 11:08:17 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_get_var(char *substr)
 
 	env = ft_get_shell(NULL)->env;
 	if (!env || !substr)
-		return (NULL);
+		return (ft_strdup(""));
 	if (!ft_strcmp(substr, "?"))
 		return (ft_itoa(g_errno));
 	while (env)
