@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nakawashi <nakawashi@student.42.fr>        +#+  +:+       +#+         #
+#    By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 14:02:39 by lgenevey          #+#    #+#              #
-#    Updated: 2022/12/05 00:26:41 by nakawashi        ###   ########.fr        #
+#    Updated: 2022/12/05 10:13:00 by lgenevey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
