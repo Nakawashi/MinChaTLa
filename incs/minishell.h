@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakawashi <nakawashi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/04 19:30:18 by nakawashi        ###   ########.fr       */
+/*   Updated: 2022/12/05 12:17:07 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int			ft_is_alphanum_(char c);
 
 // Builtins utils
 void		replace_node(t_variable **export, t_variable *new);
-void		replace_node_env(t_variable *env, t_variable *new);
+void		replace_node_env(t_variable **env, t_variable *new);
 
 // Binaries
 int			exec_cmd(t_cmdli *cmdli);
@@ -204,7 +204,7 @@ void		is_builtin(t_cmdli **cmdli, int mode);
 void		exec_builtin(void (*f)(t_cmdli **), t_cmdli **cmdli, int mode);
 int			builtin_fork(void (*f)(t_cmdli **), t_cmdli **cmdli);
 
-void		is_absolute_path(char **args, t_list *env);
+//void		is_absolute_path(char **args, t_list *env);
 char		*no_path(char *cmd, char *path);
 char		*path_join(char *path, char *cmd, unsigned int path_len,
 				unsigned int cmd_len);
@@ -213,7 +213,6 @@ char		**free_path(char **tab, char *path);
 void		set_redirection(t_cmdli *cmdli);
 char		*get_absolute_path(char *cmd, char *path);
 int			ft_strchr_path(char *s, char *path, int c);
-char		*no_path(char *cmd, char *path);
 int			close_pipe(int	*pipe);
 int			close_and_free(t_cmdli *cmdli);
 void		write_heredoc(t_cmdli **cmdli, char *limit);
@@ -223,13 +222,9 @@ int			builtin_set_file(t_cmdli *cmdli);
 
 // Readline
 void		rl_replace_line(const char *text, int clear_undo);
-t_token		*get_token(t_shell *shell);
 
 // Heredoc
 int			heredoc(t_cmdli **cmdli, char *limit);
-
-//Secure
-char		**free_tab_null(char **ss);
 
 //Secure
 char		**free_tab_null(char **ss);

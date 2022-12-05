@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:31 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/05 11:25:44 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:24:44 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	update_node(char *name, char *value)
 	node->next = NULL;
 	replace_node(&shell->export, node);
 	if (node->value)
-		replace_node_env(shell->env, node);
+		replace_node_env(&shell->env, node);
 }
 
 static void	move_new_dir(char *new_path, char *buff)

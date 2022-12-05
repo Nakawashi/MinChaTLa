@@ -6,14 +6,14 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:46:29 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/05 11:12:40 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:16:32 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../printfd/HEADER/ft_printfd.h"
 
-static void	bigger(t_variable *prev, t_variable *new,
+static int	bigger(t_variable *prev, t_variable *new,
 	t_variable **export, t_variable *current)
 {
 	if (prev)
@@ -21,9 +21,10 @@ static void	bigger(t_variable *prev, t_variable *new,
 	else
 		(*export) = new;
 	new->next = current;
+	return (0);
 }
 
-static void	equal_fill(t_variable *prev, t_variable *new,
+static int	equal_fill(t_variable *prev, t_variable *new,
 	t_variable **export, t_variable *current)
 {
 	if (prev)
@@ -33,17 +34,22 @@ static void	equal_fill(t_variable *prev, t_variable *new,
 	new->next = current->next;
 	free(current->name);
 	free(current);
+	return (0);
 }
 
-static void	equal(t_variable *new, t_variable *current)
+static int	equal(t_variable *new, t_variable *current)
 {
 	if (!new->value)
-		return ;
+		return (0);
 	if (current->value)
 		free(current->value);
 	current->value = new->value;
+	return (0);
 }
 
+/*
+	Tri par insertion pour export
+*/
 int	put_node(t_variable **export, t_variable *current,
 			t_variable *prev, t_variable *new)
 {
@@ -51,20 +57,11 @@ int	put_node(t_variable **export, t_variable *current,
 
 	cmp_ret = ft_strcmp(current->name, new->name);
 	if (cmp_ret > 0)
-	{
-		bigger(prev, new, export, current);
-		return (0);
-	}
+		return (bigger(prev, new, export, current));
 	if (!cmp_ret && !current->value)
-	{
-		equal_fill(prev, new, export, current);
-		return (0);
-	}
+		return (equal_fill(prev, new, export, current));
 	if (!cmp_ret)
-	{
-		equal(new, current);
-		return (0);
-	}
+		return (equal(new, current));
 	return (1);
 }
 
@@ -87,7 +84,7 @@ void	ft_export(t_cmdli **cmdli)
 			new = create_var_node((*cmdli)->cmd_args[i++]);
 			replace_node(&shell->export, new);
 			if (new->value)
-				replace_node_env(shell->env, new);
+				replace_node_env(&shell->env, new);
 		}
 	}
 	else

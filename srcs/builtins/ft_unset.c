@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:33:42 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/04 12:23:49 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:28:44 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ void	ft_unset(t_cmdli **cmdli)
 		return ;
 	i = 1;
 	shell = ft_get_shell(NULL);
-	while (args[i] && shell->export && shell->env)
+	while (args[i] && shell->export)
 	{
-		skip_node(&shell->env, args[i], 1);
+		if (shell->env)
+			skip_node(&shell->env, args[i], 1);
 		skip_node(&shell->export, args[i], 0);
 		++i;
 	}
