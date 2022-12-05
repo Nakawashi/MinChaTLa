@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hermesrolle <hermesrolle@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:33:17 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/04 18:53:53 by hermesrolle      ###   ########.fr       */
+/*   Updated: 2022/12/05 10:34:41 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ int	check_non_authorized_names(char *str, int *i)
 {
 	unsigned int	j;
 
-	if (str[0] == '#')
-	{
-		++(*i);
-		return (1);
-	}
+	// if (str[0] == '#')
+	// {
+	// 	++(*i);
+	// 	return (1);
+	// }
 	j = 0;
-	if (!(str[0] <= '9' && str[0] >= '0') && str[0] != '=')
+	if (!(str[0] <= '9' && str[0] >= '0'))
 		while (str[j] && ft_is_alphanum_(str[j]))
 			++j;
-	if (str[j])
+	if (!j || (str[j] && str[j] != '='))
 	{
 		ft_printfd(2, "export: `%s': not a valid identifier\n", str);
 		g_errno = 1;
