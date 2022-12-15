@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 06:43:55 by hrolle            #+#    #+#             */
-/*   Updated: 2022/12/02 17:33:06 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 15:26:10 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*split_cmd_sp_add_func(char **cmdline, char *ret, unsigned int *i)
 	if (((*cmdline)[*i] && (*cmdline)[*i] == '$'))
 		return (add_var(cmdline, ret, i));
 	if ((*cmdline)[*i] == '~')
-		return (add_home(cmdline, i));
+		return (add_home(i));
 	else if ((*cmdline)[*i] && (*cmdline)[*i] == '\'')
 		return (add_quote(cmdline, ret, i));
 	else if ((*cmdline)[*i] && (*cmdline)[*i] == '"')

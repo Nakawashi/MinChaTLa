@@ -6,7 +6,7 @@
 /*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 14:30:47 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/05 12:17:07 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:25:49 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char		*split_cmd(char **cmdline, unsigned int *i, char c);
 char		**ft_strsjoin(char *s, char **ss);
 t_file		**file_join(char *file, t_file **files, t_type type);
 char		*add_var(char **cmdline, char *str, unsigned int *i);
-char		*add_home(char **cmdline, unsigned int *i);
+char		*add_home(unsigned int *i);
 char		*add_quote(char **cmdline, char *str, unsigned int *i);
 char		*add_dquote(char **cmdline, char *str, unsigned int *i);
 char		*split_cmd_sp(char **cmdline, unsigned int *i);
@@ -170,7 +170,7 @@ t_variable	*init_export(void);
 // Signals
 void		handle_interrupt(int sig);
 void		sig_mode(int mode);
-void		term_handler(t_shell *shell);
+void		term_handler(void);
 
 // Builtins
 void		ft_env(t_cmdli **cmdli);

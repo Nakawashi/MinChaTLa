@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_andor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 15:35:59 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/12/02 18:29:12 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 15:24:11 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	andor_while_check(t_cmdli **cmdli, int new_errno)
 {
-	while ((*cmdli) && (new_errno && (*cmdli)->and_or == 1)
+	while (((*cmdli) && new_errno && (*cmdli)->and_or == 1)
 		|| (!new_errno && (*cmdli)->and_or == 2))
 	{
 		if ((*cmdli)->pipe_in && (*cmdli)->pipe_in[0] == -1

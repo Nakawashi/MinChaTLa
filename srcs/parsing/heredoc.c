@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgoel <tgoel@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:22 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 18:31:08 by tgoel            ###   ########.fr       */
+/*   Updated: 2022/12/05 15:22:58 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	heredoc_parent(t_cmdli **cmdli, pid_t pid, char *limit)
 		return (free_cmdli(cmdli));
 }
 
-void	heredoc_child(t_cmdli **cmdli, pid_t pid, char *limit)
+void	heredoc_child(t_cmdli **cmdli, char *limit)
 {
 	sig_mode(3);
 	close((*cmdli)->pipe_in[0]);
@@ -71,13 +71,12 @@ void	heredoc_child(t_cmdli **cmdli, pid_t pid, char *limit)
 	{
 		close((*cmdli)->pipe_in[1]);
 		exit_error(errno, NULL);
-	}	
+	}
 }
 
 void	write_heredoc(t_cmdli **cmdli, char *limit)
 {
 	pid_t	pid;
-	int		status;
 
 	(*cmdli)->here_doc = 1;
 	if (!(*cmdli)->pipe_in)
@@ -93,7 +92,7 @@ void	write_heredoc(t_cmdli **cmdli, char *limit)
 	if (pid == -1)
 		return (error_cmdli(cmdli, strerror(errno)));
 	else if (!pid)
-		heredoc_child(cmdli, pid, limit);
+		heredoc_child(cmdli, limit);
 	else
 		heredoc_parent(cmdli, pid, limit);
 }

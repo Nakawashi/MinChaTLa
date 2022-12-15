@@ -6,7 +6,7 @@
 /*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 00:32:45 by hermesrolle       #+#    #+#             */
-/*   Updated: 2022/11/29 20:00:25 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/02 19:26:22 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,10 @@ void	ft_echo(t_cmdli **cmdli)
 		ss++;
 	g_errno = 0;
 	if (!ss || !*ss)
+	{
 		write((*cmdli)->fd_out, "\n", 1);
+		return ;
+	}
 	ss = set_options(ss, &options);
 	if (*ss)
 		print_while(cmdli, ss, &options);

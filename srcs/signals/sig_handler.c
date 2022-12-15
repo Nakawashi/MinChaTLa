@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:46:34 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/02 18:29:57 by hrolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 16:19:18 by lgenevey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void	handle_interrupt(int sig)
 }
 
 /*
-	mode = 0 for SIG_IGN (for childs)
-	mode = 1 for SIG_DFL but custom
+	mode == 0
+		SIG_IGN (in child)
+	mode == 1
+		custom ctrl + c
+	other mode (== 2)
+		default ctr + c
 */
 void	sig_mode(int mode)
 {
@@ -45,7 +49,7 @@ void	sig_mode(int mode)
 	no ^C with ECHOCTL option
 	applies settings now
 */
-void	term_handler(t_shell *shell)
+void	term_handler(void)
 {
 	struct termios	term_flag;
 

@@ -3,20 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgenevey <lgenevey@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: hrolle <hrolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 22:52:41 by lgenevey          #+#    #+#             */
-/*   Updated: 2022/12/05 12:25:32 by lgenevey         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:49:17 by hrolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	add_and_free_new_value(t_variable *current, t_variable *new)
+static void	add_and_free_new_value(t_variable *current, t_variable *new)
 {
 	current->value = new->value;
 	free(new->name);
 	free(new);
+}
+
+static void	add_new_node_to_null(t_variable **env, t_variable *new)
+{
+	*env = malloc(sizeof(t_variable));
+	(*env)->name = new->name;
+	(*env)->value = new->value;
+	(*env)->next = NULL;
 }
 
 /*
@@ -30,13 +38,7 @@ void	replace_node_env(t_variable **env, t_variable *new)
 
 	prev = NULL;
 	if (!*env)
-	{
-		*env = malloc(sizeof(t_variable));
-		(*env)->name = new->name;
-		(*env)->value = new->value;
-		(*env)->next = NULL; // <---------
-		return ;
-	}
+		return (add_new_node_to_null(env, new));
 	current = *env;
 	while (current)
 	{
@@ -62,11 +64,9 @@ void	replace_node(t_variable **export, t_variable *new)
 {
 	t_variable	*prev;
 	t_variable	*current;
-//	static int	i;
 
 	prev = NULL;
 	current = *export;
-	//i++;
 	if (!*export)
 	{
 		*export = new;
